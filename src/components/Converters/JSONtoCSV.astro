@@ -1,0 +1,220 @@
+
+---
+
+    /*
+    <div class="file-select" id="src-file1" >
+        <input type="file" id="fileInput" name="src-file1" aria-label="Archivo" accept=".json">
+    </div>
+    */
+---
+
+
+<section class="flex flex-col gap-4 justify-start items-start text-white">
+
+    <h5>Convert JSON to CSV Online and Free!</h5>
+
+    <article class="w-full">
+        <div 
+        class="file-select flex flex-col justify-center items-stretch" 
+        id="src-file1">
+            <span>JSON File</span>
+            <input type="file" class='fancy-file' id="fileInput" name="src-file1" accept=".json" data-button="Examinar" data-empty="Sin archivos" multiple />
+        </div>
+    </article>
+    <button id="btn" class="px-6 py-2.5 transition-colors duration-300 text-[#ffffff] bg-[#00000000] hover:bg-[#414141] border border-[#3d3d3d] rounded-3xl flex flex-row gap-2 justify-center items-center disabled:bg-[#272727] disabled:text-[#bbbbbb] disabled:cursor-not-allowed" disabled>Download CSV</button>
+
+  </section>
+
+
+
+  <script>
+    function create(tagName) {
+      return document.createElement(tagName);
+    }
+    let csvData = ''; // Variable para almacenar el CSV generado
+let uploadedFileName = ''; // Variable para almacenar el nombre del archivo cargado
+
+// Detecta cuando se selecciona un archivo
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+function handleFileSelect(event) {
+  const file = event.target.files[0];
+  if (file) {
+    uploadedFileName = file.name.replace(/\.[^/.]+$/, ""); // Guarda el nombre del archivo sin la extensión
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const result = e.target.result;
+
+      if (typeof result === 'string') {
+        try {
+          const json = JSON.parse(result); // Intenta parsear el archivo como JSON
+          handle(json); // Convierte el JSON a CSV
+          document.getElementById('btn').removeAttribute("disabled"); // Habilita el botón si el archivo es válido
+        } catch (error) {
+          alert('Invalid JSON file. Please select a valid JSON file.');
+          document.getElementById('btn').setAttribute("disabled", "disabled"); // Deshabilita el botón si el JSON no es válido
+        }
+      } else {
+        alert('Error reading file. Expected a string.');
+      }
+    };
+    reader.readAsText(file); // Lee el archivo como texto
+  }
+}
+
+// Convierte el JSON a CSV
+function handle(obj) {
+  if (obj.data && Array.isArray(obj.data) && obj.data.length > 0) {
+    // Genera los encabezados del CSV
+    const headers = Object.keys(obj.data[0]).join(', ');
+
+    // Genera las filas del CSV, con cada valor separado por comas y espacios
+    const main = obj.data.map(item => Object.values(item).map(value => `"${value}"`).join(', '));
+
+    // Unir los encabezados con los datos
+    csvData = [headers, ...main].join('\n');
+  } else {
+    alert("Invalid JSON structure. The JSON should contain an array called 'data'.");
+    document.getElementById('btn').setAttribute("disabled", "disabled");
+  }
+}
+
+// Evento de clic para descargar el CSV
+document.getElementById('btn').addEventListener('click', () => {
+  if (csvData) {
+    startCSVDownload(csvData); // Llama a la función de descarga si el CSV está generado
+  } else {
+    alert("No CSV data available. Please select a JSON file first.");
+  }
+});
+
+// Descarga el archivo CSV con el mismo nombre que el archivo JSON cargado
+function startCSVDownload(csv) {
+  const blob = new Blob([csv], { type: 'text/csv' }); // Crea el blob con los datos del CSV
+  const url = URL.createObjectURL(blob); // Genera una URL temporal
+
+  const a = document.createElement('a'); // Crea un enlace temporal
+  a.href = url;
+  a.download = `${uploadedFileName}.csv`; // Usa el nombre del archivo JSON y cambia la extensión a .csv
+  document.body.appendChild(a); // Añade el enlace al DOM
+  a.click(); // Simula el clic para descargar
+  document.body.removeChild(a); // Elimina el enlace temporal
+
+  URL.revokeObjectURL(url); // Revoca la URL temporal
+}
+
+    
+
+    const files = document.querySelectorAll('.fancy-file');
+Array.from(files).forEach(
+  f => {
+    const inputFile = f as HTMLInputElement; // Asegura que 'f' es un HTMLInputElement
+    const label = create('label');
+    const span_text = create('span');
+    const span_name = create('span');
+    const span_button = create('span');
+
+    label.htmlFor = inputFile.id;
+
+    span_text.className = 'fancy-file__fancy-file-name';
+    span_button.className = 'fancy-file__fancy-file-button';
+
+    span_name.innerHTML = inputFile.dataset.empty || 'Ningún archivo seleccionado';
+    span_button.innerHTML = inputFile.dataset.button || 'Buscar';
+
+    label.appendChild(span_text);
+    label.appendChild(span_button);
+    span_text.appendChild(span_name);
+    inputFile.parentNode?.appendChild(label);
+
+    span_name.style.width = (span_text.clientWidth - 20) + 'px';
+
+    inputFile.addEventListener('change', e => {
+      if (inputFile.files?.length === 0) {
+        span_name.innerHTML = inputFile.dataset.empty || 'Ningún archivo seleccionado';
+      } else if (inputFile.files?.length > 1) {
+        span_name.innerHTML = inputFile.files.length + ' archivos seleccionados';
+      } else {
+        span_name.innerHTML = inputFile.files?.[0].name;
+      }
+    });
+  }
+);
+
+  </script>
+  
+
+
+  <style is:inline>
+    @tailwind base;
+
+article > div{
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+article > div > span + input:not([type=file]){
+    flex: 1;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+article > div > span + input[type=file]{
+    padding: 5px 0;
+}
+
+article > input[type=submit]{
+    display: inline-block;
+    margin-left: 105px;
+}
+
+
+.fancy-file{
+    display: none;
+}
+.fancy-file + label{
+    display: flex;
+    flex: 1;
+}
+.fancy-file__fancy-file-name,
+.fancy-file__fancy-file-button{
+    padding: 5px 10px;
+}
+
+.fancy-file__fancy-file-name{
+    background: #242424;
+    border: 1px solid #3d3d3d;
+    flex: 1;
+    border-radius: 4px 0 0 4px;
+}
+
+.fancy-file__fancy-file-name span{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 0px;
+    display: block;
+}
+
+.fancy-file__fancy-file-button{
+    background: #1d5b00;
+    border: 1px solid #3d3d3d;
+    color: white;
+    white-space: nowrap;
+    border-radius: 0 4px 4px 0;
+    padding-left: 0.7em;
+    cursor: pointer;
+}
+
+.fancy-file.red + label > .fancy-file__fancy-file-button{
+    background-color: #D9534F;
+    border-color:#D64641;
+}
+.fancy-file.green + label > .fancy-file__fancy-file-button{
+    background-color: #5CB85C;
+    border-color:#4FB04F;   
+}
+
+  </style>

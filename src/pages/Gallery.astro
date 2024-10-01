@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SemiFooter from '../components/SemiFooter.astro';
+
+import galleryImage from "/src/assets/images/gallery/a1.webp"
+---
+
+<Layout title="Portfolio Prototype v3 | Gallery">
+	<Header page='gallery' />
+	<main class=" overflow-hidden w-full px-6 md:px-10 pt-12 pb-6 max-w-5xl m-auto flex flex-col gap-24">
+
+        <section class="flex flex-col gap-32 md:gap-40 justify-center items-start">
+
+            <header class="flex flex-col gap-16 justify-center items-start">
+                <h2 class="text-5xl md:text-6xl text-balance !leading-[5.5rem]">Gallery</h2>
+
+                <p class="text-lg max-w-xl text-balance">Various samples of work, a mix of personal projects, client work, and concepts that never made it past the drawing board. Enjoy the scroll. </p>
+            </header>
+        
+            <section class="flex flex-col gap-24
+            [&>article]:flex [&>article]:flex-col [&>article]:gap-8">
+        
+                <article>
+                    <header class="relative h-[400px]">
+                        <div class="absolute top-0 right-0 flex flex-row gap-4 [&>img]:h-[400px] [&>img]:object-cover">
+                            <img src={galleryImage?.src} alt="#">
+                            <img src={galleryImage?.src} alt="#">
+                        </div>
+                    </header>
+                    
+                    <footer class="flex flex-col gap-6 max-w-lg items-start">
+                        <h4 class="text-2xl">Common.wtf</h4>
+                        <p class="text-[#8a847a]">A weekend project wrapped in a single HTML & CSS file. Commonly used unicodes, click to copy.</p>
+                        <a class="px-6 py-3 bg-white rounded-3xl text-black hover:bg-[#cacaca] transition-colors duration-300" href="">Common.wtf</a>
+                    </footer>
+                </article>
+
+                <article>
+                    <header class="relative h-[400px]">
+                        <div class="absolute top-0 right-0 flex flex-row gap-4 [&>img]:h-[400px] [&>img]:object-cover">
+                            <img src={galleryImage?.src} alt="#">
+                            <img src={galleryImage?.src} alt="#">
+                        </div>
+                    </header>
+                    
+                    <footer class="flex flex-col gap-6 max-w-lg items-start">
+                        <h4 class="text-2xl">Common.wtf</h4>
+                        <p class="text-[#8a847a]">A weekend project wrapped in a single HTML & CSS file. Commonly used unicodes, click to copy.</p>
+                        <a class="px-6 py-3 bg-white rounded-3xl text-black hover:bg-[#cacaca] transition-colors duration-300" href="">Common.wtf</a>
+                    </footer>
+                </article>
+
+                <article>
+                    <header class="relative h-[400px]">
+                        <div class="absolute top-0 right-0 flex flex-row gap-4 [&>img]:h-[400px] [&>img]:object-cover">
+                            <img src={galleryImage?.src} alt="#">
+                            <img src={galleryImage?.src} alt="#">
+                        </div>
+                    </header>
+                    
+                    <footer class="flex flex-col gap-6 max-w-lg items-start">
+                        <h4 class="text-2xl">Common.wtf</h4>
+                        <p class="text-[#8a847a]">A weekend project wrapped in a single HTML & CSS file. Commonly used unicodes, click to copy.</p>
+                        <a class="px-6 py-3 bg-white rounded-3xl text-black hover:bg-[#cacaca] transition-colors duration-300" href="">Common.wtf</a>
+                    </footer>
+                </article>
+
+            </section>
+        
+        </section>
+
+        <SemiFooter />
+
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	
+</style>
