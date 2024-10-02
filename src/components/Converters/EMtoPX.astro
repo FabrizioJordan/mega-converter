@@ -1,0 +1,107 @@
+---
+
+---
+
+<section class="[&_input]:rounded-lg">
+    
+    <article class="flex flex-col items-start justify-center gap-8">
+        
+        <h5 class="">Convert EM to PX and PX to EM Online and Free!</h5>
+
+        <div class="flex gap-4 items-center">
+            <p class="">Set a default EM size in pixel</p>
+
+            <input 
+             class="text-black py-1.5 px-4"
+             value="16" type="number" name="emSize" id="emSize" pattern="[0-9]">
+
+        </div>
+    
+        <form id="converterForm" class="flex flex-col gap-4 items-start">
+
+            <div class="flex gap-4 items-center">
+                <span>Convert EM to PX</span>
+                <input 
+                 class="text-black py-1.5 px-4"
+                 type="text" name="emToPx" id="emToPx" placeholder="Introduce un número">
+            </div>
+            
+            <div class="flex gap-4 items-center">
+                <span>Convert PX to EM</span>
+                <input 
+                 class="text-black py-1.5 px-4"
+                 type="text" name="pxToEm" id="pxToEm" placeholder="Introduce un número">
+            </div>
+
+            <input
+             class="bg-[#04AA6D] font-semibold tracking-wider rounded-lg px-6 py-3"
+             type="submit" value="Convert">
+
+        </form>
+
+        <h6 class="font-medium text-lg">Result: <span id="result" class=""></span></h6>
+    </article>
+
+</section>
+
+<script>
+    // Selecciona los elementos y los define como HTMLInputElement
+    const emSize = document.querySelector('#emSize') as HTMLInputElement;
+    const emToPx = document.querySelector('#emToPx') as HTMLInputElement;
+    const pxToEm = document.querySelector('#pxToEm') as HTMLInputElement;
+    const resultText = document.querySelector('#result') as HTMLSpanElement;
+
+    const form = document.querySelector("#converterForm") as HTMLFormElement;
+
+    // Manejar el evento submit
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevenir la recarga de la página
+
+      // Realizar las conversiones
+      if (emToPx.value) {
+        convertEMtoPX();
+      } else if (pxToEm.value) {
+        convertPXtoEM();
+      } else {
+        resultText.innerHTML = "Por favor introduce un valor.";
+      }
+    });
+
+    // Convierte EM a PX
+    function convertEMtoPX() {
+      let emValue = emToPx.value.replace(',', '.'); // Reemplaza comas por puntos
+      emValue = parseFloat(emValue);
+
+      if (isNaN(emValue)) {
+        resultText.innerHTML = "Por favor introduce un número válido.";
+        return;
+      }
+
+      const pxValue = emValue * parseFloat(emSize.value);
+
+      if (Number.isInteger(pxValue)) {
+        resultText.innerHTML = pxValue + " px"; // Sin decimales si es entero
+      } else {
+        resultText.innerHTML = pxValue.toFixed(2) + " px"; // Con dos decimales si es decimal
+      }
+    }
+
+    // Convierte PX a EM
+    function convertPXtoEM() {
+      let pxValue = pxToEm.value.replace(',', '.'); // Reemplaza comas por puntos
+      pxValue = parseFloat(pxValue);
+
+      if (isNaN(pxValue)) {
+        resultText.innerHTML = "Por favor introduce un número válido.";
+        return;
+      }
+
+      const emValue = pxValue / parseFloat(emSize.value);
+
+      if (Number.isInteger(emValue)) {
+        resultText.innerHTML = emValue + " em"; // Sin decimales si es entero
+      } else {
+        resultText.innerHTML = emValue.toFixed(2) + " em"; // Con dos decimales si es decimal
+      }
+    }
+</script>

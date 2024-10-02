@@ -1,4 +1,5 @@
 ---
+import EMtoPX from "./Converters/EMtoPX.astro";
 import JSONtoCSV from "./Converters/JSONtoCSV.astro";
 import Projects from "./Projects.astro";
 import SemiFooter from "./SemiFooter.astro";
@@ -26,12 +27,12 @@ import SemiFooter from "./SemiFooter.astro";
             </li>
         </ul>
 
-        <ul class="flex flex-row [&_p]:opacity-0 [&_p]:transition-opacity [&_p]:duration-500">
+        <ul class="flex flex-row [&_li]:opacity-0 [&_li]:transition-opacity [&_li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <JSONtoCSV />
+                <EMtoPX />
             </li>
             <li class="initText-2 hidden">
-                
+                <JSONtoCSV />
             </li>
             <li class="initText-3 hidden">
                 
