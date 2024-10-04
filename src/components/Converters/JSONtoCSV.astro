@@ -48,8 +48,15 @@ function handleFileSelect(event) {
       if (typeof result === 'string') {
         try {
           const json = JSON.parse(result); // Intenta parsear el archivo como JSON
-          handle(json); // Convierte el JSON a CSV
-          document.getElementById('btn').removeAttribute("disabled"); // Habilita el botón si el archivo es válido
+          const arrayData = findFirstArrayOrObject(json); // Busca el primer array u objeto en cualquier parte del JSON
+          
+          if (arrayData) {
+            handle(arrayData); // Convierte el array u objeto encontrado a CSV
+            document.getElementById('btn').removeAttribute("disabled"); // Habilita el botón si el archivo es válido
+          } else {
+            alert('Invalid JSON structure. No array or object found.');
+            document.getElementById('btn').setAttribute("disabled", "disabled"); // Deshabilita el botón si no se encuentra un array u objeto
+          }
         } catch (error) {
           alert('Invalid JSON file. Please select a valid JSON file.');
           document.getElementById('btn').setAttribute("disabled", "disabled"); // Deshabilita el botón si el JSON no es válido
@@ -62,19 +69,42 @@ function handleFileSelect(event) {
   }
 }
 
+// Encuentra el primer array o maneja objetos en el JSON
+function findFirstArrayOrObject(obj) {
+  if (Array.isArray(obj)) {
+    return obj; // Si el objeto en sí es un array, devolverlo
+  }
+  if (typeof obj === 'object' && obj !== null) {
+    for (const key in obj) {
+      if (Array.isArray(obj[key])) {
+        return obj[key]; // Si se encuentra un array en alguna clave, devolverlo
+      } else if (typeof obj[key] === 'object') {
+        return obj[key]; // Si se encuentra un objeto, devolverlo
+      }
+    }
+    return obj; // Si es un objeto plano sin arrays, devolverlo directamente
+  }
+  return null; // Si no se encuentra ni un array ni un objeto
+}
+
 // Convierte el JSON a CSV
-function handle(obj) {
-  if (obj.data && Array.isArray(obj.data) && obj.data.length > 0) {
-    // Genera los encabezados del CSV
-    const headers = Object.keys(obj.data[0]).join(', ');
-
-    // Genera las filas del CSV, con cada valor separado por comas y espacios
-    const main = obj.data.map(item => Object.values(item).map(value => `"${value}"`).join(', '));
-
-    // Unir los encabezados con los datos
+function handle(data) {
+  if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object') {
+    // Si es un array, genera los encabezados y filas del CSV
+    const headers = Object.keys(data[0]).join(', ');
+    const main = data.map(item => Object.values(item).map(value => `"${value}"`).join(', '));
+    csvData = [headers, ...main].join('\n');
+  } else if (typeof data === 'object' && data !== null) {
+    // Si es un objeto, procesarlo como un CSV
+    const keys = Object.keys(data);
+    const headers = ["ID", ...Object.keys(data[keys[0]])].join(', ');
+    const main = keys.map(key => {
+      const values = Object.values(data[key]).map(value => `"${value}"`);
+      return `"${key}", ${values.join(', ')}`;
+    });
     csvData = [headers, ...main].join('\n');
   } else {
-    alert("Invalid JSON structure. The JSON should contain an array called 'data'.");
+    alert("Invalid JSON structure. The array or object should contain valid data.");
     document.getElementById('btn').setAttribute("disabled", "disabled");
   }
 }
@@ -102,6 +132,7 @@ function startCSVDownload(csv) {
 
   URL.revokeObjectURL(url); // Revoca la URL temporal
 }
+
 
     
 
