@@ -1,0 +1,80 @@
+---
+
+---
+
+
+<section>
+    <div class="flex flex-col gap-4 justify-center items-start text-black">
+        <h1 class="text-white">Currency Converter</h1>
+        <div class="flex flex-row gap-4 items-center">
+          <div class="flex flex-col gap-4">
+            <select name="currency" class="rounded-lg"> 
+                <option value="USD">USD</option>
+                <option value="EUR" selected>EUR</option>
+            </select>
+            <input class="rounded-lg px-4 py-2" type="text" name="" id="input_currency">
+          </div>
+          <div class="flex flex-col gap-4">
+            <select name="currency" class="rounded-lg">
+                <option value="USD" selected>USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <input class="rounded-lg px-4 py-2" type="text" name="" id="output_currency" disabled>
+          </div>
+        </div>
+        <div class="flex flex-row gap-4">
+            <!-- Botón para intercambiar las divisas -->
+            <button class="text-white rounded-lg bg-[#3d3d3d] px-6 py-2.5 " id="swapButton">Swap</button>
+            <button class="text-white rounded-lg bg-[#1d5b00] px-6 py-2.5 " id="convertButton">Convert</button>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    // @ts-nocheck
+
+    const convertButton = document.getElementById("convertButton");
+    const swapButton = document.getElementById("swapButton");
+    const select = document.querySelectorAll(".currency");
+    const input_currency = document.getElementById('input_currency');
+    const output_currency = document.getElementById('output_currency');
+
+    fetch(`https://api.frankfurter.app/currencies`)
+    .then((data) => data.json())
+    .then((data) => {
+        const entries = Object.entries(data);
+        for (var i = 0; i < entries.length; i++) {
+            if (entries[i][0] !== 'USD' && entries[i][0] !== 'EUR') { // Evita agregar USD y EUR
+                select[0].innerHTML += `<option value="${entries[i][0]}">${entries[i][0]}</option>`;
+                select[1].innerHTML += `<option value="${entries[i][0]}">${entries[i][0]}</option>`;
+            }
+        }
+    });
+
+    function convert(){
+        const input_currency_val = input_currency.value;
+        if(select[0].value != select[1].value ){
+            const host = 'api.frankfurter.app';
+            fetch(`https://${host}/latest?amount=${input_currency_val}&from=${select[0].value}&to=${select[1].value}`)
+            .then((val) => val.json())
+            .then((val) => {
+                output_currency.value = Object.values(val.rates)[0];
+            });
+        }else{
+            alert("Please select two different currencies");
+        }
+    }
+
+    // Función para intercambiar las divisas seleccionadas
+    function swapCurrencies() {
+        const tempValue = select[0].value;
+        select[0].value = select[1].value;
+        select[1].value = tempValue;
+    }
+
+    convertButton?.addEventListener('click', convert);
+    swapButton?.addEventListener('click', swapCurrencies);
+
+</script>
