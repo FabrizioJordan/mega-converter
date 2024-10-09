@@ -1,0 +1,114 @@
+---
+// #ffffff6e devuelve 255, 255, 255, 0.43
+// y rgb(255 255 255 / 43%) devuelve  #ffff6e (errado)
+---
+<section>
+    <div class="flex flex-col gap-4 justify-center items-start text-black">
+        <h1 class="text-white">Color Converter</h1>
+        <div class="flex flex-row gap-4">
+            <div class="flex flex-col gap-4">
+                <label for="hexInput" class="text-white">Hex to RGB</label>
+                <input class="rounded-lg px-4 py-2" type="text" id="hexInput" placeholder="#FFFFFF or #FFFFFFAA or #FFF">
+                <button class="text-white rounded-lg bg-[#1d5b00] px-6 py-2.5" id="convertHexButton">Convert</button>
+                <div id="rgbOutput" class="text-white"></div>
+            </div>
+            <div class="flex flex-col gap-4">
+                <label for="rgbInput" class="text-white">RGB to Hex</label>
+                <input class="rounded-lg px-4 py-2" type="text" id="rgbInput" placeholder="rgb(255 255 255 / 43%) or (255, 255, 255)">
+                <button class="text-white rounded-lg bg-[#1d5b00] px-6 py-2.5" id="convertRgbButton">Convert</button>
+                <div id="hexOutput" class="text-white"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// @ts-nocheck
+
+document.getElementById("convertHexButton").addEventListener("click", function() {
+    const hexInput = document.getElementById("hexInput").value;
+    const rgbOutput = document.getElementById("rgbOutput");
+
+    // Verifica el formato hexadecimal, incluyendo el formato corto y con alfa
+    const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$/;
+    if (hexRegex.test(hexInput)) {
+        let hex = hexInput.slice(1); // Quita el símbolo #
+
+        // Si el formato es corto, expandir a largo
+        if (hex.length === 3) {
+            hex = hex.split('').map((h) => h + h).join('');
+        }
+
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        let a = 1; // valor por defecto para opacidad
+        if (hex.length === 8) {
+            a = (parseInt(hex.slice(6, 8), 16) / 255).toFixed(2); // Convierte la opacidad
+        }
+
+        // Mostrar resultado con o sin alpha según corresponda
+        if (hex.length === 8 && a != 1) {
+            rgbOutput.innerHTML = `RGBA: rgba(${r}, ${g}, ${b}, ${a})`;
+        } else {
+            rgbOutput.innerHTML = `RGB: rgb(${r}, ${g}, ${b})`;
+        }
+    } else {
+        rgbOutput.innerHTML = "Invalid hex color format.";
+    }
+});
+
+document.getElementById("convertRgbButton").addEventListener("click", function() {
+    const rgbInput = document.getElementById("rgbInput").value;
+    const hexOutput = document.getElementById("hexOutput");
+
+    // Verifica el formato RGB, permitiendo rgb(255 255 255 / 43%) y rgba(255, 255, 255, 0.43)
+    const rgbRegex = /^(rgba?\(\s*(\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})(?:\s*\/\s*(\d{1,3})%)?(?:,\s*(\d*\.?\d+))?\))|^\(\s*(\d{1,3})\s*,?\s*(\d{1,3})\s*,?\s*(\d{1,3})\s*\)$/;
+    const match = rgbInput.match(rgbRegex);
+
+    if (match) {
+        let r, g, b, a = 255; // Alpha por defecto a 255 (100%)
+        let hasAlpha = false;
+
+        if (match[2] !== undefined) {
+            // Caso rgb(255 255 255 / 43%) o rgba(255, 255, 255, 0.43)
+            r = parseInt(match[2]);
+            g = parseInt(match[3]);
+            b = parseInt(match[4]);
+
+            // Detectar opacidad
+            if (match[5] !== undefined) {
+                // Para formato rgb(255 255 255 / 43%)
+                a = Math.round(parseFloat(match[5]) / 100 * 255);
+                hasAlpha = true;
+            } else if (match[6] !== undefined) {
+                // Para formato rgba(255, 255, 255, 0.43)
+                a = Math.round(parseFloat(match[6]) * 255);
+                hasAlpha = true;
+            }
+        } else {
+            // Caso (255, 255, 255)
+            r = parseInt(match[7]);
+            g = parseInt(match[8]);
+            b = parseInt(match[9]);
+        }
+
+        // Validación de los valores RGB
+        if ([r, g, b].every(value => value >= 0 && value <= 255)) {
+            let hex;
+            if (hasAlpha) {
+                // Incluye alpha si está presente
+                hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).padStart(6, '0')}${a.toString(16).padStart(2, '0')}`;
+            } else {
+                // No incluye alpha si no está presente
+                hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).padStart(6, '0')}`;
+            }
+            hexOutput.innerHTML = `Hex: ${hex}`;
+        } else {
+            hexOutput.innerHTML = "RGB values must be between 0 and 255.";
+        }
+    } else {
+        hexOutput.innerHTML = "Invalid RGB color format.";
+    }
+});
+</script>

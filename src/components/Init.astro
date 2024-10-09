@@ -1,4 +1,5 @@
 ---
+import HEXtoRGB from "./Converters/Colors/HEXtoRGB.astro";
 import Currency from "./Converters/Currency.astro";
 import EMtoPX from "./Converters/EMtoPX.astro";
 import JSONtoCSV from "./Converters/JSONtoCSV.astro";
@@ -21,10 +22,10 @@ import SemiFooter from "./SemiFooter.astro";
                 <h6 class="initTitle-2">EM a PX</h6>
             </li>
             <li>
-                <h6 class="initTitle-3">Currency</h6>
+                <h6 class="initTitle-3">Currency converter</h6>
             </li>
             <li>
-                <h6 class="initTitle-4">Advisory</h6>
+                <h6 class="initTitle-4">Color converter</h6>
             </li>
         </ul>
 
@@ -39,7 +40,7 @@ import SemiFooter from "./SemiFooter.astro";
                 <Currency />
             </li>
             <li class="initText-4 hidden">
-                
+                <HEXtoRGB />
             </li>
         </ul>
     </article>
