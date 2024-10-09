@@ -1,5 +1,6 @@
 ---
 import HEXtoRGB from "./Converters/Colors/HEXtoRGB.astro";
+import HSL from "./Converters/Colors/HSL.astro";
 import Currency from "./Converters/Currency.astro";
 import EMtoPX from "./Converters/EMtoPX.astro";
 import JSONtoCSV from "./Converters/JSONtoCSV.astro";
@@ -9,7 +10,7 @@ import SemiFooter from "./SemiFooter.astro";
 ---
 
 
-<section class="pt-12 flex flex-col gap-24 md:gap-44">
+<section class="pt-12 flex flex-col gap-24 md:gap-44 text-white">
     
     <article class=" max-w-2xl flex flex-col justify-center items-start gap-8">
         <h2 class="text-5xl md:text-6xl text-balance !leading-[5.5rem]">Independent Software Converter.</h2>
@@ -39,8 +40,10 @@ import SemiFooter from "./SemiFooter.astro";
             <li class="initText-3 hidden">
                 <Currency />
             </li>
-            <li class="initText-4 hidden">
+            <li class="initText-4 hidden flex flex-col gap-8">
+                <h1 class="text-lg">Color Converter</h1>
                 <HEXtoRGB />
+                <HSL />
             </li>
         </ul>
     </article>
