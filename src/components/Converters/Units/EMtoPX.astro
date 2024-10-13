@@ -11,6 +11,7 @@
 // verificar si todo lo anterior está hecho (ver si quiero tmb cambiar animaciones)
 // especialmente arreglar si lo de los inputs, chatgpt no logra hacerlo ni entenderlo
 ---
+
 <section class="[&_input]:rounded-lg"> 
   <article class="flex flex-col items-start justify-center gap-8">
 
@@ -21,24 +22,25 @@
           <input class="text-black py-1.5 px-4" value="16" type="number" name="emSize" id="emSize" pattern="[0-9]">
       </div>
 
-      <form id="converterForm" class="flex flex-col gap-6 items-start">
+      <div class="flex flex-col gap-6 items-start">
           <div class="flex gap-6 items-center">
               <span>Convert EM to PX</span>
               <input class="text-black py-1.5 px-4" type="text" name="emToPx" id="emToPx" placeholder="Enter a number">
+              <button id="convertEmToPx" class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 rounded-lg px-4 py-2">Convert</button>
           </div>
           
           <div class="flex gap-6 items-center">
               <span>Convert PX to EM</span>
               <input class="text-black py-1.5 px-4" type="text" name="pxToEm" id="pxToEm" placeholder="Enter a number">
+              <button id="convertPxToEm" class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 rounded-lg px-4 py-2">Convert</button>
           </div>
-
-          <input class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 tracking-wider rounded-lg px-6 py-3" type="submit" value="Convert">
-      </form>
-
-      <div class="bg-[#33333396] rounded-lg flex gap-2 py-3 px-6 font-cursive">
-        <h6 class="font-medium text-lg">Result: </h6>
-        <span id="result" class="transition-opacity opacity-0 duration-500"></span>
       </div>
+
+      <div class="bg-[#33333396] rounded-lg flex items-center gap-2 py-3 px-6 font-cursive">
+        <h6 class="font-medium text-lg">Result: </h6>
+        <span id="resultEmToPx" class="transition-opacity opacity-0 duration-500"></span>
+      </div>
+      
   </article>
 </section>
 
@@ -47,8 +49,10 @@
 const emSize = document.querySelector('#emSize');
 const emToPx = document.querySelector('#emToPx');
 const pxToEm = document.querySelector('#pxToEm');
-const resultText = document.querySelector('#result');
-const form = document.querySelector("#converterForm");
+const resultText = document.querySelector('#resultEmToPx');
+
+const convertEmToPxButton = document.querySelector('#convertEmToPx');
+const convertPxToEmButton = document.querySelector('#convertPxToEm');
 
 // Cuando el campo emToPx recibe foco
 emToPx.addEventListener('focus', () => {
@@ -72,21 +76,14 @@ pxToEm.addEventListener('blur', () => {
   emToPx.disabled = false; // Habilita el campo emToPx de nuevo
 });
 
+// Manejar la conversión de EM a PX
+convertEmToPxButton.addEventListener('click', function () {
+  convertEMtoPX();
+});
 
-
-// Manejar el evento submit
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
-
-  if (emToPx.value) {
-    convertEMtoPX();
-  } else if (pxToEm.value) {
-    convertPXtoEM();
-  } else {
-    resultText.innerHTML = "Please enter a valid number.";
-  }
-
-  resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
+// Manejar la conversión de PX a EM
+convertPxToEmButton.addEventListener('click', function () {
+  convertPXtoEM();
 });
 
 // Convierte EM a PX
@@ -106,6 +103,8 @@ function convertEMtoPX() {
   } else {
     resultText.innerHTML = pxValue.toFixed(2) + " px"; // Con dos decimales
   }
+
+  resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
 }
 
 // Convierte PX a EM
@@ -125,6 +124,8 @@ function convertPXtoEM() {
   } else {
     resultText.innerHTML = emValue.toFixed(5) + " em"; // Con cinco decimales
   }
+
+  resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
 }
 </script>
 

@@ -1,0 +1,129 @@
+---
+ 
+---
+<section class="[&_input]:rounded-lg"> 
+    <article class="flex flex-col items-start justify-center gap-8">
+  
+        <h5 class="">Convert CM to PX and PX to CM Online and Free!</h5>
+  
+        <div class="flex flex-col gap-2 items-start justify-center">
+            <p class="">Set a default DPI (dots per inch)</p>
+            <input class="text-black py-1.5 px-4" value="96" type="number" name="dpi" id="dpi" pattern="[0-9]">
+        </div>
+  
+        <form id="converterForm" class="flex flex-col gap-6 items-start">
+            <div class="flex gap-6 items-center">
+                <span>Convert CM to PX</span>
+                <input class="text-black py-1.5 px-4" type="text" name="cmToPx" id="cmToPx" placeholder="Enter a number">
+            </div>
+            
+            <div class="flex gap-6 items-center">
+                <span>Convert PX to CM</span>
+                <input class="text-black py-1.5 px-4" type="text" name="pxToCm" id="pxToCm" placeholder="Enter a number">
+            </div>
+  
+            <input class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 tracking-wider rounded-lg px-6 py-3" type="submit" value="Convert">
+        </form>
+  
+        <div class="bg-[#33333396] rounded-lg flex items-center gap-2 py-3 px-6 font-cursive">
+            <h6 class="font-medium text-lg">Result: </h6>
+            <span id="resultCmToPx" class="transition-opacity opacity-0 duration-500"></span>
+        </div>
+          
+    </article>
+  </section>
+  
+  <script>
+    // @ts-nocheck
+  const dpi = document.querySelector('#dpi');
+  const cmToPx = document.querySelector('#cmToPx');
+  const pxToCm = document.querySelector('#pxToCm');
+  const resultText = document.querySelector('#resultCmToPx');
+
+  const form = document.querySelector("#converterForm");
+  
+  // Cuando el campo cmToPx recibe foco
+  cmToPx.addEventListener('focus', () => {
+    pxToCm.disabled = true;
+    pxToCm.value = "";
+  });
+  
+  // Cuando el campo pxToCm recibe foco
+  pxToCm.addEventListener('focus', () => {
+    cmToPx.disabled = true;
+    cmToPx.value = "";
+  });
+  
+  // Cuando cmToPx pierde el foco
+  cmToPx.addEventListener('blur', () => {
+    pxToCm.disabled = false;
+  });
+  
+  // Cuando pxToCm pierde el foco
+  pxToCm.addEventListener('blur', () => {
+    cmToPx.disabled = false;
+  });
+  
+  // Manejar el evento submit
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+  
+    if (cmToPx.value) {
+      convertCMtoPX();
+    } else if (pxToCm.value) {
+      convertPXtoCM();
+    } else {
+      resultText.innerHTML = "Please enter a valid number.";
+    }
+  
+    resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
+  });
+  
+  // Convierte CM a PX
+  function convertCMtoPX() {
+    let cmValue = cmToPx.value.replace(',', '.'); // Reemplaza comas por puntos
+    cmValue = parseFloat(cmValue);
+  
+    if (isNaN(cmValue)) {
+      resultText.innerHTML = "Please enter a valid number.";
+      return;
+    }
+  
+    const pxValue = cmValue * parseFloat(dpi.value) / 2.54; // 1 inch = 2.54 cm
+  
+    if (Number.isInteger(pxValue)) {
+      resultText.innerHTML = pxValue + " px";
+    } else {
+      resultText.innerHTML = pxValue.toFixed(2) + " px"; // Con dos decimales
+    }
+  }
+  
+  // Convierte PX a CM
+  function convertPXtoCM() {
+    let pxValue = pxToCm.value.replace(',', '.'); // Reemplaza comas por puntos
+    pxValue = parseFloat(pxValue);
+  
+    if (isNaN(pxValue)) {
+      resultText.innerHTML = "Please enter a valid number.";
+      return;
+    }
+  
+    const cmValue = pxValue * 2.54 / parseFloat(dpi.value); // 1 inch = 2.54 cm
+  
+    if (Number.isInteger(cmValue)) {
+      resultText.innerHTML = cmValue + " cm";
+    } else {
+      resultText.innerHTML = cmValue.toFixed(5) + " cm"; // Con cinco decimales
+    }
+  }
+  </script>
+  
+  <style>
+  .transition-opacity {
+    transition: opacity 0.5s;
+  }
+  .opacity-0 {
+    opacity: 0;
+  }
+  </style>
+  

@@ -2,9 +2,9 @@
 import HEXtoRGB from "./Converters/Colors/HEXtoRGB.astro";
 import HSL from "./Converters/Colors/HSL.astro";
 import Currency from "./Converters/Currency.astro";
-import EMtoPX from "./Converters/EMtoPX.astro";
+import EMtoPX from "./Converters/Units/EMtoPX.astro";
 import JSONtoCSV from "./Converters/JSONtoCSV.astro";
-import SemiFooter from "./SemiFooter.astro";
+import InchesConverter from "./Converters/Units/CMtoPX.astro";
 
 ---
 
@@ -34,7 +34,7 @@ import SemiFooter from "./SemiFooter.astro";
                 <JSONtoCSV />
             </li>
             <li class="initText-2 hidden">
-                <EMtoPX />
+                <EMtoPX/>
             </li>
             <li class="initText-3 hidden">
                 <Currency />
@@ -47,78 +47,44 @@ import SemiFooter from "./SemiFooter.astro";
         </ul>
     </article>
 
-    <SemiFooter />
 </section>
 
 
 <script is:inline>
-a = 0
-
-if(a == 1){
-    a = 1
-    initTexts = []
-    initTitles = []
-
-    for (let i = 1; i <= 4; i++) {
-        initTexts[`initText${i}`] = $(`.initText-${i}`);
-        initTitles[`initTitle${i}`] = $(`.initTitle-${i}`);
-
-        if (initTitles[`initTitle${i}`]) {
-            initTitles[`initTitle${i}`].addEventListener('click', () => {
-
-                // Ocultar todos los initTexts
-                for (let j = 1; j <= 4; j++) {
-                    initTexts[`initText${j}`].classList.add('hidden');
+    // @ts-nocheck
+    function initConverterScript () {
+        let $ = selector => document.querySelector(selector);
+    
+        let initTexts = [];
+        let initTitles = [];
+    
+        for (let i = 1; i <= 4; i++) {
+            initTexts[`initText${i}`] = $(`.initText-${i}`);
+            initTitles[`initTitle${i}`] = $(`.initTitle-${i}`);
+    
+            if (initTitles[`initTitle${i}`]) {
+                initTitles[`initTitle${i}`].addEventListener('click', () => {
+                    // Ocultar todos los initTexts
+                    for (let j = 1; j <= 4; j++) {
+                        initTexts[`initText${j}`].classList.add('hidden');
+                        setTimeout(() => {
+                            initTexts[`initText${j}`].classList.remove('!opacity-100');
+                        }, 100);
+                        initTitles[`initTitle${j}`].classList.remove('!text-white');
+                    }
+    
+                    // Mostrar el initText correspondiente al initTitle clickeado
+                    initTexts[`initText${i}`].classList.remove('hidden');
                     setTimeout(() => {
-                        initTexts[`initText${j}`].classList.remove('!opacity-100');
-                    }, 100)
-                    initTitles[`initTitle${j}`].classList.remove('!text-white');
-                }
-
-                // Mostrar el initText correspondiente al initTitle clickeado
-                initTexts[`initText${i}`].classList.remove('hidden');
-                setTimeout(() => {
-                    initTexts[`initText${i}`].classList.add('!opacity-100');
-                }, 100)
-                initTitles[`initTitle${i}`].classList.add('!text-white');
-                
-            });
+                        initTexts[`initText${i}`].classList.add('!opacity-100');
+                    }, 100);
+                    initTitles[`initTitle${i}`].classList.add('!text-white');
+                });
+            }
         }
     }
-}else if(a == 0){
-    a = 1
-        
-    let $ = selector => document.querySelector(selector)
 
-    initTexts = []
-    initTitles = []
-
-    for (let i = 1; i <= 4; i++) {
-        initTexts[`initText${i}`] = $(`.initText-${i}`);
-        initTitles[`initTitle${i}`] = $(`.initTitle-${i}`);
-
-        if (initTitles[`initTitle${i}`]) {
-            initTitles[ `initTitle${i}`].addEventListener('click', () => {
-
-                // Ocultar todos los initTexts
-                for (let j = 1; j <= 4; j++) {
-                    initTexts[`initText${j}`].classList.add('hidden');
-                    setTimeout(() => {
-                        initTexts[`initText${j}`].classList.remove('!opacity-100');
-                    }, 100)
-                    initTitles[`initTitle${j}`].classList.remove('!text-white');
-                }
-
-                // Mostrar el initText correspondiente al initTitle clickeado
-                initTexts[`initText${i}`].classList.remove('hidden');
-                setTimeout(() => {
-                    initTexts[`initText${i}`].classList.add('!opacity-100');
-                }, 100)
-                initTitles[`initTitle${i}`].classList.add('!text-white');
-                
-            });
-        }
-    }
-}
-
-</script>
+    initConverterScript()
+    window.addEventListener('astro:page-load', initConverterScript);
+    </script>
+    

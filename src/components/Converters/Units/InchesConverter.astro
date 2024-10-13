@@ -1,0 +1,93 @@
+---
+ 
+---
+<section class="[&_input]:rounded-lg"> 
+    <article class="flex flex-col items-start justify-center gap-8">
+  
+        <h5 class="">Convert Inches to CM and PX Online and Free!</h5>
+  
+        <div class="flex flex-col gap-2 items-start justify-center">
+            <p class="">Set a default DPI (Dots Per Inch) for pixel conversion</p>
+            <input class="text-black py-1.5 px-4" value="96" type="number" name="dpi" id="dpi" pattern="[0-9]">
+        </div>
+  
+        <div class="flex flex-col gap-6 items-start">
+            <div class="flex gap-6 items-center">
+                <span>Convert Inches to CM</span>
+                <input class="text-black py-1.5 px-4" type="text" name="inchesToCm" id="inchesToCm" placeholder="Enter a number">
+                <button id="convertInchesToCm" class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 rounded-lg px-4 py-2">Convert</button>
+            </div>
+            
+            <div class="flex gap-6 items-center">
+                <span>Convert Inches to PX</span>
+                <input class="text-black py-1.5 px-4" type="text" name="inchesToPx" id="inchesToPx" placeholder="Enter a number">
+                <button id="convertInchesToPx" class="bg-[#1d5b00] hover:bg-[#277702] transition-colors duration-300 rounded-lg px-4 py-2">Convert</button>
+            </div>
+        </div>
+  
+        <div class="bg-[#33333396] rounded-lg flex items-center gap-2 py-3 px-6 font-cursive">
+          <h6 class="font-medium text-lg">Result: </h6>
+          <span id="resultInchesConverter" class="transition-opacity opacity-0 duration-500"></span>
+        </div>
+    </article>
+  </section>
+  
+  <script>
+    // @ts-nocheck
+  const dpi = document.querySelector('#dpi');
+  const inchesToCm = document.querySelector('#inchesToCm');
+  const inchesToPx = document.querySelector('#inchesToPx');
+  const resultText = document.querySelector('#resultInchesConverter');
+  const convertInchesToCmButton = document.querySelector('#convertInchesToCm');
+  const convertInchesToPxButton = document.querySelector('#convertInchesToPx');
+  
+  // Manejar la conversión de Inches a CM
+  convertInchesToCmButton.addEventListener('click', function () {
+    convertInchesToCM();
+  });
+  
+  // Manejar la conversión de Inches a PX
+  convertInchesToPxButton.addEventListener('click', function () {
+    convertInchesToPX();
+  });
+  
+  // Convierte Inches a CM
+  function convertInchesToCM() {
+    let inchesValue = inchesToCm.value.replace(',', '.');
+    inchesValue = parseFloat(inchesValue);
+  
+    if (isNaN(inchesValue)) {
+      resultText.innerHTML = "Please enter a valid number.";
+      return;
+    }
+  
+    const cmValue = inchesValue * 2.54; // 1 inch = 2.54 cm
+    resultText.innerHTML = cmValue.toFixed(2) + " cm"; // Con dos decimales
+    resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
+  }
+  
+  // Convierte Inches a PX
+  function convertInchesToPX() {
+    let inchesValue = inchesToPx.value.replace(',', '.');
+    inchesValue = parseFloat(inchesValue);
+  
+    if (isNaN(inchesValue)) {
+      resultText.innerHTML = "Please enter a valid number.";
+      return;
+    }
+  
+    const pxValue = inchesValue * parseFloat(dpi.value); // Convertir a píxeles usando el DPI
+    resultText.innerHTML = pxValue.toFixed(2) + " px"; // Con dos decimales
+    resultText.classList.remove('opacity-0'); // Mostrar el resultado con animación
+  }
+  </script>
+  
+  <style>
+  .transition-opacity {
+    transition: opacity 0.5s;
+  }
+  .opacity-0 {
+    opacity: 0;
+  }
+  </style>
+  

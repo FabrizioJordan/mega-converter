@@ -1,10 +1,4 @@
-
 ---
-    /*
-    <div class="file-select" id="src-file1" >
-        <input type="file" id="fileInput" name="src-file1" aria-label="Archivo" accept=".json">
-    </div>
-    */
 ---
 
 
@@ -17,7 +11,7 @@
         class="file-select flex flex-col justify-center items-stretch" 
         id="src-file1">
             <span>JSON File</span>
-            <input type="file" class='fancy-file' id="fileInput" name="src-file1" accept=".json" data-button="Select" data-empty="Sin archivos" multiple />
+            <input type="file" class='fancy-file hidden' id="fileInput" name="src-file1" accept=".json" data-button="Select" data-empty="Sin archivos" multiple />
         </div>
     </article>
     <button id="btn" class="px-6 py-2.5 transition-colors duration-300 text-[#ffffff] bg-[#00000000] hover:bg-[#414141] border border-[#3d3d3d] rounded-3xl flex flex-row gap-2 justify-center items-center disabled:bg-[#272727] disabled:text-[#bbbbbb] disabled:cursor-not-allowed" disabled>Download CSV</button>
@@ -181,32 +175,7 @@ Array.from(files).forEach(
   <style is:inline>
     @tailwind base;
 
-article > div{
-    margin-bottom: 3px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
 
-article > div > span + input:not([type=file]){
-    flex: 1;
-    padding: 5px 10px;
-    border-radius: 4px;
-}
-
-article > div > span + input[type=file]{
-    padding: 5px 0;
-}
-
-article > input[type=submit]{
-    display: inline-block;
-    margin-left: 105px;
-}
-
-
-.fancy-file{
-    display: none;
-}
 .fancy-file + label{
     display: flex;
     flex: 1;
