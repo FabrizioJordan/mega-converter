@@ -18,7 +18,7 @@ import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 
         <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
             <li>
-                <h6 class="initTitle-1 !text-white">JSON to CSV</h6>
+                <h6 class="initTitle-1 !text-white">File converter</h6>
             </li>
             <li>
                 <h6 class="initTitle-2">EM a PX</h6>
@@ -33,10 +33,11 @@ import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 
         <ul class="flex flex-row [&_li]:opacity-0 [&_li]:transition-opacity [&_li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <MarkdownConverter />
+                <JSONtoCSV />
+                <MarkdownConverter />   
             </li>
             <li class="initText-2 hidden">
-                <EMtoPX/>
+                <EMtoPX />
             </li>
             <li class="initText-3 hidden">
                 <Currency />

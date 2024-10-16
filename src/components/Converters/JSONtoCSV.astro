@@ -11,7 +11,7 @@
         class="file-select flex flex-col justify-center items-stretch" 
         id="src-file1">
             <span>JSON File</span>
-            <input type="file" class='fancy-file hidden' id="fileInput" name="src-file1" accept=".json" data-button="Select" data-empty="Sin archivos" multiple />
+            <input type="file" class='fancy-file hidden' id="fileInput" name="src-file1" accept=".json" data-button="Select" data-empty="No file" multiple />
         </div>
     </article>
     <button id="btn" class="px-6 py-2.5 transition-colors duration-300 text-[#ffffff] bg-[#00000000] hover:bg-[#414141] border border-[#3d3d3d] rounded-3xl flex flex-row gap-2 justify-center items-center disabled:bg-[#272727] disabled:text-[#bbbbbb] disabled:cursor-not-allowed" disabled>Download CSV</button>
@@ -129,13 +129,9 @@ function startCSVDownload(csv) {
   URL.revokeObjectURL(url); // Revoca la URL temporal
 }
 
-
-    
-
-    const files = document.querySelectorAll('.fancy-file');
-Array.from(files).forEach(
-  f => {
-    const inputFile = f as HTMLInputElement; // Asegura que 'f' es un HTMLInputElement
+const files = document.querySelectorAll('.fancy-file');
+Array.from(files).forEach(f => {
+    const inputFile = f; 
     const label = create('label');
     const span_text = create('span');
     const span_name = create('span');
@@ -146,35 +142,37 @@ Array.from(files).forEach(
     span_text.className = 'fancy-file__fancy-file-name';
     span_button.className = 'fancy-file__fancy-file-button';
 
-    span_name.innerHTML = inputFile.dataset.empty || 'Ningún archivo seleccionado';
-    span_button.innerHTML = inputFile.dataset.button || 'Buscar';
+    // Asegúrate de que el valor inicial del span sea el data-empty
+    span_name.innerHTML = inputFile.dataset.empty || 'No file selected';
+    span_button.innerHTML = inputFile.dataset.button || 'Browse';
 
     label.appendChild(span_text);
     label.appendChild(span_button);
     span_text.appendChild(span_name);
     inputFile.parentNode?.appendChild(label);
 
+    // Calcula el tamaño del span de nombre correctamente
     span_name.style.width = (span_text.clientWidth - 30) + 'px';
 
+    // Escucha cambios en el archivo seleccionado
     inputFile.addEventListener('change', e => {
+      console.log('File changed:', inputFile.files);
       if (inputFile.files?.length === 0) {
-        span_name.innerHTML = inputFile.dataset.empty || 'Ningún archivo seleccionado';
+          span_name.innerHTML = inputFile.dataset.empty || 'No file selected';
       } else if (inputFile.files?.length > 1) {
-        span_name.innerHTML = inputFile.files.length + ' archivos seleccionados';
+          span_name.innerHTML = inputFile.files.length + ' files selected';
       } else {
-        span_name.innerHTML = inputFile.files?.[0].name;
+          span_name.innerHTML = inputFile.files?.[0].name;
       }
-    });
-  }
-);
+  });
 
-  </script>
-  
+});
 
 
-  <style is:inline>
-    @tailwind base;
+</script>
 
+<style is:inline>
+  @tailwind base;
 
 .fancy-file + label{
     display: flex;
@@ -219,4 +217,4 @@ Array.from(files).forEach(
     border-color:#4FB04F;   
 }
 
-  </style>
+</style>

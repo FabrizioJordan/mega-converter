@@ -2,150 +2,131 @@
 ---
 
 <section class="flex flex-col gap-4 justify-start items-start text-white">
-
     <h5>Convert Markdown to HTML Online and Free!</h5>
-
     <article class="w-full">
-        <div 
-        class="file-select flex flex-col justify-center items-stretch" 
-        id="src-file">
+        <div class="file-select flex flex-col justify-center items-stretch" id="src-file">
             <span>Markdown File</span>
-            <input type="file" class='fancy-file hidden' id="fileInput" name="src-file" accept=".md" data-button="Select" data-empty="No files" />
+            <input type="file" class='fancy-file-md hidden' id="fileInputMd" name="src-file-md" accept=".md" data-button="Select" data-empty="No files" />
         </div>
     </article>
-    <button id="convertBtn" class="px-6 py-2.5 bg-[#6330ff4a] hover:bg-[#6330ff82] text-white rounded transition-colors duration-300" disabled>Convert to HTML</button>
-    <button id="downloadBtn" class="mt-4 px-6 py-2.5 bg-[#1d5b00] hover:bg-[#277702] text-white rounded transition-colors duration-300" disabled>Download HTML</button>
+    <button id="convertBtnMd" class="px-6 py-2.5 bg-[#6430ff79] hover:bg-[#6430ff9d] disabled:bg-[#6f40ff47] disabled:hover:bg-[#6f40ff47] disabled:cursor-not-allowed text-white rounded transition-colors duration-300" disabled>Convert to HTML</button>
+    <button id="downloadBtnMd" class="mt-4 px-6 py-2.5 bg-[#1d5b00] hover:bg-[#277702] text-white rounded transition-colors duration-300 disabled:bg-[#1d5b00a4] disabled:hover:bg-[#1d5b00a4] disabled:cursor-not-allowed" disabled>Download HTML</button>
 </section>
 
 <script>
 // @ts-nocheck
 
-function create(tagName) {
-  return document.createElement(tagName);
-}
-
-let generatedHTML = ''; // Variable para almacenar el HTML generado
-let uploadedFileName = ''; // Variable para almacenar el nombre del archivo cargado
-
-const fileInput = document.getElementById('fileInput');
-const convertBtn = document.getElementById('convertBtn');
-const downloadBtn = document.getElementById('downloadBtn');
-
-// Habilitar el botón de conversión y deshabilitar el botón de descarga
-fileInput.addEventListener('change', () => {
-    if (fileInput.files.length === 0) {
-        // Si no hay archivos seleccionados, restablecer el texto del nombre del archivo
-        document.querySelector('.fancy-file__fancy-file-name span').innerHTML = fileInput.dataset.empty || 'Ningún archivo seleccionado';
-        convertBtn.setAttribute('disabled', 'disabled'); // Deshabilitar el botón de conversión si no hay archivo
-    } else {
-        // Si hay un archivo seleccionado, actualizar el nombre del archivo y habilitar el botón
-        const fileName = fileInput.files[0].name;
-        document.querySelector('.fancy-file__fancy-file-name span').innerHTML = fileName;
-        convertBtn.removeAttribute('disabled');
-        downloadBtn.setAttribute('disabled', 'disabled'); // Deshabilitar el botón de descarga hasta que se convierta
+document.addEventListener('DOMContentLoaded', () => {
+    function create(tagName) {
+        return document.createElement(tagName);
     }
-});
 
+    let generatedHTML = ''; // Variable para almacenar el HTML generado
 
-// Manejar el evento de clic en el botón de conversión
-convertBtn.addEventListener('click', () => {
-    const file = fileInput.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const markdownText = e.target.result;
-            generatedHTML = markdownToHTML(markdownText);
-            downloadBtn.removeAttribute('disabled'); // Habilitar el botón de descarga
-        };
-        reader.readAsText(file);
-    }
-});
+    const fileInputMd = document.getElementById('fileInputMd');
+    const convertBtnMd = document.getElementById('convertBtnMd');
+    const downloadBtnMd = document.getElementById('downloadBtnMd');
 
-// Función para convertir Markdown a HTML
-function markdownToHTML(markdown) {
-    return markdown
-        .replace(/###### (.*?)(\r?\n|$)/g, '<h6>$1</h6>') // H6
-        .replace(/##### (.*?)(\r?\n|$)/g, '<h5>$1</h5>') // H5
-        .replace(/#### (.*?)(\r?\n|$)/g, '<h4>$1</h4>') // H4
-        .replace(/### (.*?)(\r?\n|$)/g, '<h3>$1</h3>') // H3
-        .replace(/## (.*?)(\r?\n|$)/g, '<h2>$1</h2>') // H2
-        .replace(/# (.*?)(\r?\n|$)/g, '<h1>$1</h1>') // H1
-        .replace(/^\* (.*?)$/gm, '<li>$1</li>') // Lista desordenada
-        .replace(/^\d+\. (.*?)$/gm, '<li>$1</li>') // Lista ordenada
-        .replace(/<\/li>\n<li>/g, '</li><li>') // Combina listas
-        .replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>') // Envuelve listas
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Negritas
-        .replace(/\*(.*?)\*/g, '<em>$1</em>') // Cursivas
-        .replace(/\n/g, '<br>'); // Salto de línea
-}
-
-// Manejar el evento de clic en el botón de descarga
-downloadBtn.addEventListener('click', () => {
-    if (generatedHTML) {
-        // Obtener el nombre del archivo original y cambiar la extensión a .html
-        const originalFileName = fileInput.files[0].name; // Nombre del archivo original
-        const newFileName = originalFileName.replace(/\.[^/.]+$/, "") + '.html'; // Cambiar la extensión a .html
-
-        const blob = new Blob([generatedHTML], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = newFileName; // Usar el nuevo nombre del archivo
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url); // Limpiar la URL del blob
-    }
-});
-
-
-// Descarga el archivo HTML con el mismo nombre que el archivo Markdown cargado
-function startHTMLDownload(html) {
-    const blob = new Blob([html], { type: 'text/html' }); // Crea el blob con los datos del HTML
-    const url = URL.createObjectURL(blob); // Genera una URL temporal
-
-    const a = document.createElement('a'); // Crea un enlace temporal
-    a.href = url;
-    a.download = `${uploadedFileName}.html`; // Usa el nombre del archivo Markdown y cambia la extensión a .html
-    document.body.appendChild(a); // Añade el enlace al DOM
-    a.click(); // Simula el clic para descargar
-    document.body.removeChild(a); // Elimina el enlace temporal
-
-    URL.revokeObjectURL(url); // Revoca la URL temporal
-}
-
-// Configuración del input de archivo
-const files = document.querySelectorAll('.fancy-file');
-Array.from(files).forEach(f => {
-    const inputFile = f as HTMLInputElement; // Asegura que 'f' es un HTMLInputElement
-    const label = create('label');
-    const span_text = create('span');
-    const span_name = create('span');
-    const span_button = create('span');
-
-    label.htmlFor = inputFile.id;
-
-    span_text.className = 'fancy-file__fancy-file-name';
-    span_button.className = 'fancy-file__fancy-file-button';
-
-    span_name.innerHTML = inputFile.dataset.empty || 'No files selected';
-    span_button.innerHTML = inputFile.dataset.button || 'Browse';
-
-    label.appendChild(span_text);
-    label.appendChild(span_button);
-    span_text.appendChild(span_name);
-    inputFile.parentNode?.appendChild(label);
-
-    span_name.style.width = (span_text.clientWidth - 30) + 'px';
-
-    inputFile.addEventListener('change', e => {
-        if (inputFile.files?.length === 0) {
-            span_name.innerHTML = inputFile.dataset.empty || 'No files selected';
-        } else if (inputFile.files?.length > 1) {
-            span_name.innerHTML = inputFile.files.length + ' files selected';
+    const updateFileInputState = () => {
+        if (fileInputMd.files.length === 0) {
+            document.querySelector('.fancy-file-md__fancy-file-name span').innerHTML = fileInputMd.dataset.empty || 'Ningún archivo seleccionado';
+            convertBtnMd.setAttribute('disabled', 'disabled'); // Deshabilitar el botón de conversión si no hay archivo
+            downloadBtnMd.setAttribute('disabled', 'disabled'); // Deshabilitar el botón de descarga
         } else {
-            span_name.innerHTML = inputFile.files?.[0].name;
+            const fileName = fileInputMd.files[0].name;
+            document.querySelector('.fancy-file-md__fancy-file-name span').innerHTML = fileName;
+            convertBtnMd.removeAttribute('disabled');
+            downloadBtnMd.setAttribute('disabled', 'disabled'); // Deshabilitar el botón de descarga hasta que se convierta
         }
+    };
+
+    // Habilitar el botón de conversión y deshabilitar el botón de descarga
+    fileInputMd.addEventListener('change', updateFileInputState);
+
+    // Manejar el evento de clic en el botón de conversión
+    convertBtnMd.addEventListener('click', () => {
+        const file = fileInputMd.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const markdownText = e.target.result;
+                generatedHTML = markdownToHTML(markdownText);
+                downloadBtnMd.removeAttribute('disabled'); // Habilitar el botón de descarga
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    // Función para convertir Markdown a HTML
+    function markdownToHTML(markdown) {
+        return markdown
+            .replace(/###### (.*?)(\r?\n|$)/g, '<h6>$1</h6>') // H6
+            .replace(/##### (.*?)(\r?\n|$)/g, '<h5>$1</h5>') // H5
+            .replace(/#### (.*?)(\r?\n|$)/g, '<h4>$1</h4>') // H4
+            .replace(/### (.*?)(\r?\n|$)/g, '<h3>$1</h3>') // H3
+            .replace(/## (.*?)(\r?\n|$)/g, '<h2>$1</h2>') // H2
+            .replace(/# (.*?)(\r?\n|$)/g, '<h1>$1</h1>') // H1
+            .replace(/^\* (.*?)$/gm, '<li>$1</li>') // Lista desordenada
+            .replace(/^\d+\. (.*?)$/gm, '<li>$1</li>') // Lista ordenada
+            .replace(/<\/li>\n<li>/g, '</li><li>') // Combina listas
+            .replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>') // Envuelve listas
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Negritas
+            .replace(/\*(.*?)\*/g, '<em>$1</em>') // Cursivas
+            .replace(/\n/g, '<br>'); // Salto de línea
+    }
+
+    // Manejar el evento de clic en el botón de descarga
+    downloadBtnMd.addEventListener('click', () => {
+        if (generatedHTML) {
+            const originalFileName = fileInputMd.files[0].name; // Nombre del archivo original
+            const newFileName = originalFileName.replace(/\.[^/.]+$/, "") + '.html'; // Cambiar la extensión a .html
+
+            const blob = new Blob([generatedHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = newFileName; // Usar el nuevo nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url); // Limpiar la URL del blob
+        }
+    });
+
+    // Configuración del input de archivo
+    const files = document.querySelectorAll('.fancy-file-md');
+    Array.from(files).forEach(f => {
+        const inputFile = f as HTMLInputElement; // Asegura que 'f' es un HTMLInputElement
+        const label = create('label');
+        const span_text = create('span');
+        const span_name = create('span');
+        const span_button = create('span');
+
+        label.htmlFor = inputFile.id;
+
+        span_text.className = 'fancy-file-md__fancy-file-name';
+        span_button.className = 'fancy-file-md__fancy-file-button';
+
+        span_name.innerHTML = inputFile.dataset.empty || 'No files selected';
+        span_button.innerHTML = inputFile.dataset.button || 'Browse';
+
+        label.appendChild(span_text);
+        label.appendChild(span_button);
+        span_text.appendChild(span_name);
+        inputFile.parentNode?.appendChild(label);
+
+        span_name.style.width = (span_text.clientWidth - 30) + 'px';
+
+        inputFile.addEventListener('change', e => {
+            if (inputFile.files?.length === 0) {
+                span_name.innerHTML = inputFile.dataset.empty || 'No files selected';
+            } else if (inputFile.files?.length > 1) {
+                span_name.innerHTML = inputFile.files.length + ' files selected';
+            } else {
+                span_name.innerHTML = inputFile.files?.[0].name;
+            }
+            updateFileInputState(); // Asegúrate de actualizar el estado al cambiar
+        });
     });
 });
 </script>
@@ -153,23 +134,23 @@ Array.from(files).forEach(f => {
 <style is:inline>
 @tailwind base;
 
-.fancy-file + label {
+.fancy-file-md + label {
     display: flex;
     flex: 1;
 }
-.fancy-file__fancy-file-name,
-.fancy-file__fancy-file-button {
+.fancy-file-md__fancy-file-name,
+.fancy-file-md__fancy-file-button {
     padding: 0.5em 1em;
 }
 
-.fancy-file__fancy-file-name {
+.fancy-file-md__fancy-file-name {
     background: #242424;
     border: 1px solid #3d3d3d;
     flex: 1;
     border-radius: 8px 0 0 8px;
 }
 
-.fancy-file__fancy-file-name span {
+.fancy-file-md__fancy-file-name span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -177,7 +158,7 @@ Array.from(files).forEach(f => {
     display: block;
 }
 
-.fancy-file__fancy-file-button {
+.fancy-file-md__fancy-file-button {
     background: #1d5b00;
     border: 1px solid #3d3d3d;
     color: white;
