@@ -7,6 +7,7 @@ import Footer from '../components/Footer.astro';
 import SemiFooter from "../components/SemiFooter.astro";
 
 import CMtoPX from '../components/Converters/Units/CMtoPX.astro';
+import FileConverters from '../components/FileConverters.astro';
 /*
 
 grupo 1:
@@ -16,7 +17,7 @@ H. Conversor de EM a PX. ( faltan más )
 H. Conversor de color (RGB, HEX y HSL):
    Convierte códigos de color entre formatos como RGB, HEX, HSL.
 
-Conversor Markdown a HTML:
+H. Conversor Markdown a HTML:
    Un conversor que convierta texto en formato Markdown a HTML y viceversa.
 
 Conversor de unidades de almacenamiento:
@@ -54,6 +55,8 @@ Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
 	<Header />
 	<main class="scroll-smooth w-full flex flex-col gap-8 px-6 md:px-10 pt-12 pb-6 max-w-5xl m-auto  [&>hr]:border-[#303436]">
 		<Init />
+		<hr>
+		<FileConverters />
 		<SemiFooter />
 	</main>
 	<Footer />

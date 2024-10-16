@@ -2,11 +2,13 @@
 import HEXtoRGB from "./Converters/Colors/HEXtoRGB.astro";
 import HSL from "./Converters/Colors/HSL.astro";
 import Currency from "./Converters/Currency.astro";
+
 import EMtoPX from "./Converters/Units/EMtoPX.astro";
-import JSONtoCSV from "./Converters/JSONtoCSV.astro";
 
 import InchesConverter from "./Converters/Units/CMtoPX.astro";
+import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
 import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
+import FileConverters from "./FileConverters.astro";
 
 ---
 
@@ -18,23 +20,29 @@ import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 
         <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
             <li>
-                <h6 class="initTitle-1 !text-white">File converter</h6>
+                <h6 class="initTitle-1 !text-white">
+                    Converter
+                </h6>
             </li>
             <li>
-                <h6 class="initTitle-2">EM a PX</h6>
+                <h6 class="initTitle-2">    
+                    EM a PX
+                </h6>
             </li>
             <li>
-                <h6 class="initTitle-3">Currency converter</h6>
+                <h6 class="initTitle-3">
+                    Currency converter
+                </h6>
             </li>
             <li>
-                <h6 class="initTitle-4">Color converter</h6>
+                <h6 class="initTitle-4">
+                    Color converter
+                </h6>
             </li>
         </ul>
 
         <ul class="flex flex-row [&_li]:opacity-0 [&_li]:transition-opacity [&_li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <JSONtoCSV />
-                <MarkdownConverter />   
             </li>
             <li class="initText-2 hidden">
                 <EMtoPX />
