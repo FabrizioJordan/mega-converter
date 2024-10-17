@@ -1,0 +1,119 @@
+---
+---
+
+<section class="flex flex-col gap-4 justify-start items-start text-white max-w-lg">
+    <h5>Convert Image to/from Base64</h5>
+  
+    <!-- Convert image to Base64 -->
+    <article class="w-full">
+      <div class="file-select flex flex-col justify-center items-stretch" id="image-file-select">
+        <span>Select Image File (PNG, JPEG, BMP)</span>
+        <button id="selectImageBtn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors duration-300">Choose Image</button>
+        <input type="file" class="hidden" id="imageFileInput" accept="image/png, image/jpeg, image/bmp" />
+      </div>
+    </article>
+  
+    <button id="convertToBase64Btn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:hover:bg-blue-300 text-white rounded transition-colors duration-300" disabled>Convert to Base64</button>
+  
+    <textarea id="base64Output" class="w-full mt-4 p-2 text-black bg-gray-100 rounded" readonly placeholder="Base64 output will appear here"></textarea>
+  
+    <button id="downloadBase64Btn" class="px-6 py-2.5 bg-[#6430ff79] hover:bg-[#6430ff9d] disabled:bg-[#6f40ff47] disabled:hover:bg-[#6f40ff47] disabled:cursor-not-allowed text-white rounded transition-colors duration-300" disabled>Download Base64 Text</button>
+  
+    <!-- Convert Base64 to Image -->
+    <h5>Convert Base64 to Image</h5>
+    <textarea id="base64Input" class="w-full mt-4 p-2 text-black bg-gray-100 rounded" placeholder="Paste Base64 string here"></textarea>
+    <button id="convertToImageBtn" class="px-6 py-2.5 bg-[#1d5b00] hover:bg-[#277702] disabled:bg-[#1d5b00a4] disabled:hover:bg-[#1d5b00a4] disabled:cursor-not-allowed text-white rounded transition-colors duration-300">Convert to Image</button>
+  
+    <img id="imageOutput" class="mt-4 max-w-lg" alt="Converted Image" />
+    
+    <button id="downloadImageBtn" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-300 disabled:hover:bg-red-300 disabled:cursor-not-allowed text-white rounded transition-colors duration-300" disabled>Download Image</button>
+  
+</section>
+
+<script>
+// @ts-nocheck
+const imageFileInput = document.getElementById('imageFileInput');
+const convertToBase64Btn = document.getElementById('convertToBase64Btn');
+const base64Output = document.getElementById('base64Output');
+const base64Input = document.getElementById('base64Input');
+const convertToImageBtn = document.getElementById('convertToImageBtn');
+const imageOutput = document.getElementById('imageOutput');
+const selectImageBtn = document.getElementById('selectImageBtn');
+const downloadBase64Btn = document.getElementById('downloadBase64Btn');
+const downloadImageBtn = document.getElementById('downloadImageBtn');
+
+// Abrir el selector de archivos cuando se hace clic en el botón
+selectImageBtn.addEventListener('click', () => {
+  imageFileInput.click();
+});
+
+// Habilitar botón para convertir cuando se selecciona un archivo
+imageFileInput.addEventListener('change', () => {
+  if (imageFileInput.files.length > 0) {
+    convertToBase64Btn.removeAttribute('disabled');
+  } else {
+    convertToBase64Btn.setAttribute('disabled', 'disabled');
+  }
+});
+
+// Convertir imagen a Base64
+convertToBase64Btn.addEventListener('click', () => {
+  const file = imageFileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    base64Output.value = e.target.result;
+    downloadBase64Btn.removeAttribute('disabled'); // Habilitar botón de descarga de Base64
+  };
+
+  if (file) {
+    reader.readAsDataURL(file); // Convierte la imagen a Base64
+  }
+});
+
+// Descargar el texto Base64 como archivo .txt
+downloadBase64Btn.addEventListener('click', () => {
+  const base64Text = base64Output.value;
+  const blob = new Blob([base64Text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'base64.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url); // Limpiar la URL del blob
+});
+
+// Convertir Base64 a imagen
+convertToImageBtn.addEventListener('click', () => {
+  const base64Data = base64Input.value;
+  
+  if (base64Data) {
+    imageOutput.src = base64Data;
+    downloadImageBtn.removeAttribute('disabled'); // Habilitar botón de descarga de imagen
+  } else {
+    imageOutput.src = ''; // Limpiar la imagen si el campo está vacío
+  }
+});
+
+// Descargar imagen convertida desde Base64
+downloadImageBtn.addEventListener('click', () => {
+  const base64Data = imageOutput.src;
+  const link = document.createElement('a');
+  link.href = base64Data;
+  link.download = 'converted-image.png'; // Se puede ajustar el nombre y formato
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+</script>
+
+<style is:inline>
+@tailwind base;
+
+input[type="file"] {
+  display: none;
+}
+</style>
