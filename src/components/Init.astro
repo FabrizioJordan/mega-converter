@@ -9,6 +9,7 @@ import InchesConverter from "./Converters/Units/CMtoPX.astro";
 import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
 import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 import FileConverters from "./FileConverters.astro";
+import StorageConverter from "./Converters/Units/StorageConverter.astro";
 
 ---
 
@@ -43,6 +44,7 @@ import FileConverters from "./FileConverters.astro";
 
         <ul class="flex flex-row [&_li]:opacity-0 [&_li]:transition-opacity [&_li]:duration-500">
             <li class="initText-1 !opacity-100">
+                <StorageConverter />
             </li>
             <li class="initText-2 hidden">
                 <EMtoPX />
