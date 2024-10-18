@@ -23,6 +23,7 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Storage Units Converter`         | `Yes`       | Converts between bytes, KB, MB, GB, and TB.              |
 | `Image Format Converter`          | `Yes`       | Converts image formats (PNG, JPEG, BMP, Base64).         |
 | `Number System Converter`         | `Yes`       | Converts between binary, decimal, octal, and hexadecimal.|
+| `Inches Converter`                | `Yes`       | Converts Inches to CM and PX.                            |
 | `Time Units Converter`            | `No`        | Converts between seconds, minutes, hours, days, etc.     |
 | `Speed Units Converter`           | `No`        | Converts speed units like km/h, m/s, mph.                |
 | `Temperature Converter`           | `No`        | Converts between Celsius, Fahrenheit and Kelvin.         |
