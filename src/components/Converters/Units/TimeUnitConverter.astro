@@ -1,0 +1,104 @@
+---
+---
+<section class="flex flex-col gap-4 justify-start items-start text-white max-w-lg min-w-60">
+    <h5>Time Unit Converter</h5>
+  
+    <div class="flex flex-col w-full">
+      <label for="timeInput" class="mb-2">Enter the time value:</label>
+      <input
+        type="number"
+        id="timeInput"
+        class="w-full px-4 py-2 text-black bg-gray-100 rounded-lg"
+        placeholder="Enter time value"
+      />
+    </div>
+  
+    <div class="flex flex-col w-full">
+      <label for="fromUnit" class="mb-2">Convert from:</label>
+      <select
+        id="fromUnit"
+        class="w-full px-4 py-2 text-black bg-gray-100 rounded-lg"
+      >
+        <option value="seconds">Seconds</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+        <option value="weeks">Weeks</option>
+        <option value="months">Months</option>
+        <option value="years">Years</option>
+      </select>
+    </div>
+  
+    <div class="flex flex-col w-full">
+      <label for="toUnit" class="mb-2">Convert to:</label>
+      <select
+        id="toUnit"
+        class="w-full px-4 py-2 text-black bg-gray-100 rounded-lg"
+      >
+        <option value="seconds">Seconds</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+        <option value="weeks">Weeks</option>
+        <option value="months">Months</option>
+        <option value="years">Years</option>
+      </select>
+    </div>
+  
+    <button
+      id="convertBtn"
+      class="mt-4 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300"
+    >
+      Convert
+    </button>
+  
+    <div class="mt-4">
+      <label for="result" class="mb-2">Result:</label>
+      <p id="result" class="text-lg text-white p-2 rounded"></p>
+    </div>
+  </section>
+  
+  <script>
+  // @ts-nocheck
+  const timeInput = document.getElementById('timeInput');
+  const fromUnit = document.getElementById('fromUnit');
+  const toUnit = document.getElementById('toUnit');
+  const convertBtn = document.getElementById('convertBtn');
+  const resultDisplay = document.getElementById('result');
+  
+  const timeUnitsInSeconds = {
+    seconds: 1,
+    minutes: 60,
+    hours: 3600,
+    days: 86400,
+    weeks: 604800,
+    months: 2592000, // Approximate (30 days)
+    years: 31536000, // Approximate (365 days)
+  };
+  
+  convertBtn.addEventListener('click', () => {
+    const inputValue = parseFloat(timeInput.value);
+    const fromValue = fromUnit.value;
+    const toValue = toUnit.value;
+  
+    if (!isNaN(inputValue)) {
+      let result =
+        (inputValue * timeUnitsInSeconds[fromValue]) /
+        timeUnitsInSeconds[toValue];
+  
+      // Limitar decimales si es días, semanas, meses o años
+      if (["days", "weeks", "months", "years"].includes(toValue)) {
+        result = result.toFixed(2); // Limitar a dos decimales
+      }
+  
+      resultDisplay.innerText = `${inputValue} ${fromValue} = ${result} ${toValue}`;
+    } else {
+      resultDisplay.innerText = "Please enter a valid number.";
+    }
+  });
+  </script>
+  
+  <style is:inline>
+  @tailwind base;
+  </style>
+  

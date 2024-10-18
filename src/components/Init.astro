@@ -5,11 +5,10 @@ import Currency from "./Converters/Currency.astro";
 
 import EMtoPX from "./Converters/Units/EMtoPX.astro";
 
-import NumConverter from "./Converters/Units/NumConverter.astro";
+import TimeUnitConverter from "./Converters/Units/TimeUnitConverter.astro";
 import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
 import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 import FileConverters from "./FileConverters.astro";
-import StorageConverter from "./Converters/Units/StorageConverter.astro";
 import CMtoPX from "./Converters/Units/CMtoPX.astro";
 
 ---
@@ -45,7 +44,7 @@ import CMtoPX from "./Converters/Units/CMtoPX.astro";
 
         <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <NumConverter />
+                <TimeUnitConverter />
             </li>
             <li class="initText-2 hidden">
                 <CMtoPX />

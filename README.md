@@ -24,7 +24,7 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Image Format Converter`          | `Yes`       | Converts image formats (PNG, JPEG, BMP, Base64).         |
 | `Number System Converter`         | `Yes`       | Converts between binary, decimal, octal, and hexadecimal.|
 | `Inches Converter`                | `Yes`       | Converts Inches to CM and PX.                            |
-| `Time Units Converter`            | `No`        | Converts between seconds, minutes, hours, days, etc.     |
+| `Time Units Converter`            | `Yes`        | Converts between seconds, minutes, hours, days, etc.     |
 | `Speed Units Converter`           | `No`        | Converts speed units like km/h, m/s, mph.                |
 | `Temperature Converter`           | `No`        | Converts between Celsius, Fahrenheit and Kelvin.         |
 | `Weight and Mass Converter`       | `No`        | Converts between grams, kilograms, pounds, ounces, tons. |
@@ -43,7 +43,7 @@ C. Conversor de formato de imagen (base64 a imagen): Convierte imágenes entre f
 
 grupo 2:
 C. Conversor de sistemas numéricos: Convierte números entre diferentes sistemas: binario, decimal, octal, hexadecimal.
-Conversor de unidades de tiempo: Convierte entre diferentes unidades de tiempo (segundos, minutos, horas, días, semanas, meses, años).
+C. Conversor de unidades de tiempo: Convierte entre diferentes unidades de tiempo (segundos, minutos, horas, días, semanas, meses, años).
 Conversor de unidades de velocidad: Convierte entre diferentes unidades de velocidad como kilómetros por hora, metros por segundo, millas por hora, etc.
 
 grupo 3: (longitudes)
