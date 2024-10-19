@@ -1,0 +1,90 @@
+---
+---
+
+<section class="flex flex-col gap-4 justify-start items-start max-w-lg">
+  <h3 class="converterTitle">Weight and Mass Converter</h3>
+
+  <!-- Input for Weight -->
+  <label for="input">Enter</label>
+  <input id="input" type="number" placeholder="Enter" class="p-2 border rounded text-black" />
+
+  <!-- Input Unit Dropdown -->
+  <label for="inputUnitSelect">From</label>
+  <select id="inputUnitSelect" class="p-2 border rounded text-black">
+    <option value="mg">Milligrams (mg)</option>
+    <option selected value="g">Grams (g)</option>
+    <option value="kg">Kilograms (kg)</option>
+    <option value="lbs">Pounds (lbs)</option>
+    <option value="oz">Ounces (oz)</option>
+    <option value="t">Tonnes (t)</option>
+  </select>
+
+  <!-- Output Unit Dropdown -->
+  <label for="outputUnitSelect">To</label>
+  <select id="outputUnitSelect" class="p-2 border rounded text-black">
+    <option value="mg">Milligrams (mg)</option>
+    <option value="g">Grams (g)</option>
+    <option selected value="kg">Kilograms (kg)</option>
+    <option value="lbs">Pounds (lbs)</option>
+    <option value="oz">Ounces (oz)</option>
+    <option value="t">Tonnes (t)</option>
+  </select>
+
+  <!-- Output Display -->
+  <p class="mt-4">Converted weight: <span id="output"></span> <span id="outputUnit"></span></p>
+</section>
+
+<script>
+// @ts-nocheck
+
+// JavaScript code to handle events and conversion logic
+let inputWeight = 0;
+let inputWeightUnit = 'g';
+let outputWeightUnit = 'kg';
+let outputWeight = '';
+
+const units = {
+  'g': 1,
+  'kg': 0.001,
+  'lbs': 0.00220462,
+  'oz': 0.035274,
+  't': 0.000001,
+  'mg': 1000, // Added conversion for milligrams
+};
+
+function convertWeight() {
+  const weightInGrams = inputWeight / units[inputWeightUnit];
+  outputWeight = (weightInGrams * units[outputWeightUnit]).toString();
+
+  // If the result is an integer, remove decimal places
+  if (outputWeight.includes('.')) {
+    const decimalIndex = outputWeight.indexOf('.');
+    const integerPart = outputWeight.slice(0, decimalIndex);
+    const decimalPart = outputWeight.slice(decimalIndex + 1);
+    
+    if (parseInt(decimalPart) === 0) {
+      outputWeight = integerPart; // Keep only the integer part if no decimals
+    } else {
+      outputWeight = parseFloat(outputWeight).toFixed(4); // Keep four decimal places otherwise
+    }
+  }
+
+  document.getElementById('output').textContent = outputWeight;
+  document.getElementById('outputUnit').textContent = outputWeightUnit;
+}
+
+document.getElementById('input').addEventListener('input', (e) => {
+  inputWeight = parseFloat(e.target.value) || 0;
+  convertWeight();
+});
+
+document.getElementById('inputUnitSelect').addEventListener('change', (e) => {
+  inputWeightUnit = e.target.value;
+  convertWeight();
+});
+
+document.getElementById('outputUnitSelect').addEventListener('change', (e) => {
+  outputWeightUnit = e.target.value;
+  convertWeight();
+});
+</script>
