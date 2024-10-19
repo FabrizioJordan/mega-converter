@@ -1,14 +1,8 @@
-## 👀 Want to help?
-
-Feel free to help us making changes and creating a new PR´s.
-We are always happy to receive contributions from the community.
-You can find the source code in the [GitHub repository](https://github.com/FabrizioJordan/mega-converter/blob/master/README.md)
-
 # Mega Converter - Web App
 
 A web app for converting various units and formats in a simple and intuitive way. 
 
-## Author: Fabricio Jordán
+### Author: Fabricio Jordán
 
 > 🧑‍🚀 **Technologies?** Astro, TailwindCSS, JavaScript and CSS3.
 
@@ -31,30 +25,45 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Length Converter`                | `No`        | Converts meters, kilometers, miles, feet, inches, yards. |
 
 
+## 👀 Want to help? 
+
+Feel free to help us making changes and creating a new PR´s.
+We are always happy to receive contributions from the community.
+You can find the source code in the [GitHub repository](https://github.com/FabrizioJordan/mega-converter/blob/master/README.md)
+
 <!--
 C : Completed
+
 grupo 1:
 C. Conversor de JSON a CSV.
 C. Conversor de EM a PX.
-C. Conversor de color (RGB, HEX y HSL): Convierte códigos de color entre formatos como RGB, HEX, HSL.
-C. Conversor Markdown a HTML: Un conversor que convierta texto en formato Markdown a HTML y viceversa.
-C. Conversor de unidades de almacenamiento: Convierte entre bytes, kilobytes, megabytes, gigabytes, terabytes, etc.
-C. Conversor de formato de imagen (base64 a imagen): Convierte imágenes entre formatos comunes como PNG, JPEG, BMP, o desde/para base64.
+C. Conversor de color (RGB, HEX y HSL): 
+  Convierte códigos de color entre formatos como RGB, HEX, HSL.
+C. Conversor Markdown a HTML: 
+  Un conversor que convierta texto en formato Markdown a HTML y viceversa.
+C. Conversor de unidades de almacenamiento: 
+  Convierte entre bytes, kilobytes, megabytes, gigabytes, terabytes, etc.
+C. Conversor de formato de imagen (base64 a imagen): 
+  Convierte imágenes entre formatos comunes como PNG, JPEG, BMP, o desde/para base64.
 
 grupo 2:
-C. Conversor de sistemas numéricos: Convierte números entre diferentes sistemas: binario, decimal, octal, hexadecimal.
-C. Conversor de unidades de tiempo: Convierte entre diferentes unidades de tiempo (segundos, minutos, horas, días, semanas, meses, años).
-Conversor de unidades de velocidad: Convierte entre diferentes unidades de velocidad como kilómetros por hora, metros por segundo, millas por hora, etc.
+C. Conversor de sistemas numéricos: 
+  Convierte números entre diferentes sistemas: binario, decimal, octal, hexadecimal.
+C. Conversor de unidades de tiempo: 
+  Convierte entre diferentes unidades de tiempo (segundos, minutos, horas, días, semanas, meses, años).
+Conversor de unidades de velocidad: 
+  Convierte entre diferentes unidades de velocidad como kilómetros por hora, metros por segundo, millas por hora, etc.
 
 grupo 3: (longitudes)
-
-Conversor de temperatura: Convierte entre Celsius, Fahrenheit y Kelvin.
-
-Conversor de peso y masa: Convierte entre gramos, kilogramos, libras, onzas, toneladas.
-
-Conversor de longitudes: Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
+Conversor de temperatura:
+  Convierte entre Celsius, Fahrenheit y Kelvin.
+Conversor de peso y masa:
+  Convierte entre gramos, kilogramos, libras, onzas, toneladas.
+Conversor de longitudes:
+  Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
 
 -->
+
 
 <!--
 
