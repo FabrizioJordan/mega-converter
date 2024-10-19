@@ -20,8 +20,8 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Inches Converter`                | `Yes`       | Converts Inches to CM and PX.                            |
 | `Time Units Converter`            | `Yes`        | Converts between seconds, minutes, hours, days, etc.     |
 | `Speed Units Converter`           | `Yes`        | Converts speed units like km/h, m/s, mph.                |
-| `Temperature Converter`           | `No`        | Converts between Celsius, Fahrenheit and Kelvin.         |
-| `Weight and Mass Converter`       | `No`        | Converts between grams, kilograms, pounds, ounces, tons. |
+| `Temperature Converter`           | `Yes`        | Converts between Celsius, Fahrenheit and Kelvin.         |
+| `Weight and Mass Converter`       | `Yes`        | Converts between grams, kilograms, pounds, ounces, tons. |
 | `Length Converter`                | `No`        | Converts meters, kilometers, miles, feet, inches, yards. |
 
 
@@ -55,9 +55,9 @@ C. Conversor de unidades de velocidad:
   Convierte entre diferentes unidades de velocidad como kilómetros por hora, metros por segundo, millas por hora, etc.
 
 grupo 3: (longitudes)
-Conversor de temperatura:
+C. Conversor de temperatura:
   Convierte entre Celsius, Fahrenheit y Kelvin.
-Conversor de peso y masa:
+C. Conversor de peso y masa:
   Convierte entre gramos, kilogramos, libras, onzas, toneladas.
 Conversor de longitudes:
   Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
