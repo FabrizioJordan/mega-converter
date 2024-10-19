@@ -18,10 +18,10 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Image Format Converter`          | `Yes`       | Converts image formats (PNG, JPEG, BMP, Base64).         |
 | `Number System Converter`         | `Yes`       | Converts between binary, decimal, octal, and hexadecimal.|
 | `Inches Converter`                | `Yes`       | Converts Inches to CM and PX.                            |
-| `Time Units Converter`            | `Yes`        | Converts between seconds, minutes, hours, days, etc.     |
-| `Speed Units Converter`           | `Yes`        | Converts speed units like km/h, m/s, mph.                |
-| `Temperature Converter`           | `Yes`        | Converts between Celsius, Fahrenheit and Kelvin.         |
-| `Weight and Mass Converter`       | `Yes`        | Converts between grams, kilograms, pounds, ounces, tons. |
+| `Time Units Converter`            | `Yes`       | Converts between seconds, minutes, hours, days, etc.     |
+| `Speed Units Converter`           | `Yes`       | Converts speed units like km/h, m/s, mph.                |
+| `Temperature Converter`           | `Yes`       | Converts between Celsius, Fahrenheit and Kelvin.         |
+| `Weight and Mass Converter`       | `Yes`       | Converts between grams, kilograms, pounds, ounces, tons. |
 | `Length Converter`                | `No`        | Converts meters, kilometers, miles, feet, inches, yards. |
 
 
