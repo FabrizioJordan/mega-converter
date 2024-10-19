@@ -1,0 +1,98 @@
+---
+
+---
+
+<section class="flex flex-col gap-4 justify-start items-start max-w-lg min-w-60">
+  <h3 class="converterTitle">Temperature Unit Converter</h3>
+
+  <!-- Input for Temperature -->
+  <label for="tempInput">Enter temperature</label>
+  <input
+    id="tempInput"
+    type="number"
+    placeholder="Enter temperature"
+    class="p-2 border rounded-lg text-black min-w-60"
+  />
+
+  <!-- Input Unit Dropdown -->
+  <label for="inputTempUnit">From</label>
+  <select id="inputTempUnit" class="p-2 border rounded-lg text-black min-w-60">
+    <option selected value="C">Celsius (°C)</option>
+    <option value="F">Fahrenheit (°F)</option>
+    <option value="K">Kelvin (K)</option>
+  </select>
+
+  <!-- Output Unit Dropdown -->
+  <label for="outputTempUnit">To</label>
+  <select id="outputTempUnit" class="p-2 border rounded-lg text-black min-w-60">
+    <option value="C">Celsius (°C)</option>
+    <option selected value="F">Fahrenheit (°F)</option>
+    <option value="K">Kelvin (K)</option>
+  </select>
+
+  <!-- Output Display -->
+  <p class="mt-4">
+    Converted temperature: <span id="outputTemp"></span>
+    <span id="outputUnit"></span>
+  </p>
+</section>
+
+<script>
+  // @ts-nocheck
+
+  let inputTemp = 0;
+  let inputUnit = "C";
+  let outputUnit = "C";
+  let outputTemp = "";
+
+  function convertTemperature() {
+    let tempInCelsius;
+
+    // Convert input temperature to Celsius
+    if (inputUnit === "C") {
+      tempInCelsius = inputTemp;
+    } else if (inputUnit === "F") {
+      tempInCelsius = ((inputTemp - 32) * 5) / 9;
+    } else if (inputUnit === "K") {
+      tempInCelsius = inputTemp - 273.15;
+    }
+
+    // Convert Celsius to the desired output unit
+    if (outputUnit === "C") {
+      outputTemp = tempInCelsius;
+    } else if (outputUnit === "F") {
+      outputTemp = (tempInCelsius * 9) / 5 + 32;
+    } else if (outputUnit === "K") {
+      outputTemp = tempInCelsius + 273.15;
+    }
+
+    // If the result is an integer, show it without decimals, otherwise show two decimals
+    const displayTemp = Number.isInteger(outputTemp)
+      ? outputTemp
+      : outputTemp.toFixed(2);
+
+    document.getElementById("outputTemp").textContent = displayTemp;
+    document.getElementById("outputUnit").textContent = outputUnit;
+  }
+
+  document.getElementById("tempInput").addEventListener("input", (e) => {
+    inputTemp = parseFloat(e.target.value) || 0;
+    convertTemperature();
+  });
+
+  document.getElementById("inputTempUnit").addEventListener("change", (e) => {
+    inputUnit = e.target.value;
+    convertTemperature();
+  });
+
+  document.getElementById("outputTempUnit").addEventListener("change", (e) => {
+    outputUnit = e.target.value;
+    convertTemperature();
+  });
+</script>
+
+<style is:inline>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
