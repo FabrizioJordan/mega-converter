@@ -5,11 +5,9 @@ import Currency from "./Converters/Currency.astro";
 
 import EMtoPX from "./Converters/Units/EMtoPX.astro";
 
-import TimeUnitConverter from "./Converters/Units/TimeUnitConverter.astro";
 import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
 import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 import FileConverters from "./FileConverters.astro";
-import CMtoPX from "./Converters/Units/CMtoPX.astro";
 import SpeedUnitConverter from "./Converters/Units/SpeedUnitConverter.astro";
 
 ---
@@ -18,7 +16,7 @@ import SpeedUnitConverter from "./Converters/Units/SpeedUnitConverter.astro";
 <section class="pt-12 flex flex-col gap-24 md:gap-44 text-white">
     
     <article class=" max-w-2xl flex flex-col justify-center items-start gap-8">
-        <h2 class="text-5xl md:text-6xl text-balance !leading-[5.5rem]">Independent Software Converter.</h2>
+        <h3 class="text-5xl md:text-6xl text-balance !leading-[5.5rem]">Independent Software Converter.</h3>
 
         <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
             <li>
@@ -48,7 +46,7 @@ import SpeedUnitConverter from "./Converters/Units/SpeedUnitConverter.astro";
                 <SpeedUnitConverter />
             </li>
             <li class="initText-2 hidden">
-                <CMtoPX />
+                <EMtoPX />
             </li>
             <li class="initText-3 hidden">
                 <Currency />
