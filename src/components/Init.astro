@@ -9,6 +9,7 @@ import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
 import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
 import FileConverters from "./FileConverters.astro";
 import MassWeightConverter from "./Converters/Length/MassWeightConverter.astro";
+import LengthConverter from "./Converters/Units/LengthConverter.astro";
 
 ---
 
@@ -43,7 +44,7 @@ import MassWeightConverter from "./Converters/Length/MassWeightConverter.astro";
 
         <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <MassWeightConverter />
+                <LengthConverter />
             </li>
             <li class="initText-2 hidden">
                 <EMtoPX />

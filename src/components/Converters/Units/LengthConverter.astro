@@ -1,0 +1,95 @@
+---
+---
+
+<section class="flex flex-col gap-4 justify-start items-start max-w-lg">
+    <h3 class="converterTitle">Length Converter</h3>
+  
+    <!-- Input for Length -->
+    <label for="lengthInput">Enter</label>
+    <input id="lengthInput" type="number" placeholder="Enter" class="p-2 border rounded text-black" />
+  
+    <!-- Input Unit Dropdown -->
+    <label for="inputLengthUnitSelect">From</label>
+    <select id="inputLengthUnitSelect" class="p-2 border rounded text-black">
+      <option selected value="m">Meters (m)</option>
+      <option value="km">Kilometers (km)</option>
+      <option value="mi">Miles (mi)</option>
+      <option value="ft">Feet (ft)</option>
+      <option value="in">Inches (in)</option>
+      <option value="yd">Yards (yd)</option>
+    </select>
+  
+    <!-- Output Unit Dropdown -->
+    <label for="outputLengthUnitSelect">To</label>
+    <select id="outputLengthUnitSelect" class="p-2 border rounded text-black">
+      <option value="m">Meters (m)</option>
+      <option selected value="km">Kilometers (km)</option>
+      <option value="mi">Miles (mi)</option>
+      <option value="ft">Feet (ft)</option>
+      <option value="in">Inches (in)</option>
+      <option value="yd">Yards (yd)</option>
+    </select>
+  
+    <!-- Output Display -->
+    <p class="mt-4">Converted length: <span id="outputLength"></span> <span id="outputLengthUnit"></span></p>
+  </section>
+  
+  <script>
+  // @ts-nocheck
+  
+  let inputLength = 0;
+  let inputLengthUnit = 'm';
+  let outputLengthUnit = 'km';
+  let outputLength = '';
+  
+  const lengthUnits = {
+    'm': 1,
+    'km': 0.001,
+    'mi': 0.000621371,
+    'ft': 3.28084,
+    'in': 39.3701,
+    'yd': 1.09361,
+  };
+  
+  function convertLength() {
+    const lengthInMeters = inputLength / lengthUnits[inputLengthUnit];
+    outputLength = (lengthInMeters * lengthUnits[outputLengthUnit]).toString();
+  
+    if (outputLength.includes('.')) {
+      const decimalIndex = outputLength.indexOf('.');
+      const integerPart = outputLength.slice(0, decimalIndex);
+      const decimalPart = outputLength.slice(decimalIndex + 1);
+  
+      if (parseInt(decimalPart) === 0) {
+        outputLength = integerPart;
+      } else {
+        outputLength = parseFloat(outputLength).toFixed(4);
+      }
+    }
+  
+    document.getElementById('outputLength').textContent = outputLength;
+    document.getElementById('outputLengthUnit').textContent = outputLengthUnit;
+  }
+  
+  document.getElementById('lengthInput').addEventListener('input', (e) => {
+    inputLength = parseFloat(e.target.value) || 0;
+    convertLength();
+  });
+  
+  document.getElementById('inputLengthUnitSelect').addEventListener('change', (e) => {
+    inputLengthUnit = e.target.value;
+    convertLength();
+  });
+  
+  document.getElementById('outputLengthUnitSelect').addEventListener('change', (e) => {
+    outputLengthUnit = e.target.value;
+    convertLength();
+  });
+  </script>
+  
+  <style is:inline>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  </style>
+  
