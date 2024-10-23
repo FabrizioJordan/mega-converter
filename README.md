@@ -24,7 +24,6 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Weight and Mass Converter`       | `Yes`       | Converts between grams, kilograms, pounds, ounces, tons. |
 | `Length Converter`                | `Yes`       | Converts meters, kilometers, miles, feet, inches, yards. |
 
-
 ## 👀 Want to help? 
 
 Feel free to help us making changes and creating a new PR´s.
@@ -63,20 +62,7 @@ C. Conversor de longitudes:
   Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
 
 -->
-
-
 <!--
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
 ## 🚀 Project Structure
