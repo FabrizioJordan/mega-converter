@@ -22,7 +22,7 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Speed Units Converter`           | `Yes`       | Converts speed units like km/h, m/s, mph.                |
 | `Temperature Converter`           | `Yes`       | Converts between Celsius, Fahrenheit and Kelvin.         |
 | `Weight and Mass Converter`       | `Yes`       | Converts between grams, kilograms, pounds, ounces, tons. |
-| `Length Converter`                | `No`        | Converts meters, kilometers, miles, feet, inches, yards. |
+| `Length Converter`                | `Yes`       | Converts meters, kilometers, miles, feet, inches, yards. |
 
 
 ## 👀 Want to help? 
@@ -59,7 +59,7 @@ C. Conversor de temperatura:
   Convierte entre Celsius, Fahrenheit y Kelvin.
 C. Conversor de peso y masa:
   Convierte entre gramos, kilogramos, libras, onzas, toneladas.
-Conversor de longitudes:
+C. Conversor de longitudes:
   Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
 
 -->
