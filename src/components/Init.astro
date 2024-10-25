@@ -5,11 +5,9 @@ import Currency from "./Converters/Currency.astro";
 
 import EMtoPX from "./Converters/Text/EMtoPX.astro";
 
-import JSONtoCSV from "./Converters/Documents/JSONtoCSV.astro";
-import MarkdownConverter from "./Converters/Documents/MarkdownConverter.astro";
-import FileConverters from "./FileConverters.astro";
 import MassWeightConverter from "./Converters/Length/MassWeightConverter.astro";
 import LengthConverter from "./Converters/Length/LengthConverter.astro";
+import FileConverters from "./FileConverters.astro";
 
 ---
 
@@ -44,7 +42,7 @@ import LengthConverter from "./Converters/Length/LengthConverter.astro";
 
         <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
             <li class="initText-1 !opacity-100">
-                <LengthConverter />
+                <FileConverters />
             </li>
             <li class="initText-2 hidden">
                 <EMtoPX />
@@ -92,12 +90,26 @@ import LengthConverter from "./Converters/Length/LengthConverter.astro";
                         initTexts[`initText${i}`].classList.add('!opacity-100');
                     }, 100);
                     initTitles[`initTitle${i}`].classList.add('!text-white');
+    
+                    // Guardar el estado en localStorage
+                    localStorage.setItem('activeConverter', i);
                 });
             }
         }
+    
+        // Recuperar el estado del conversor activo desde localStorage
+        const activeConverter = localStorage.getItem('activeConverter');
+        if (activeConverter) {
+            // Simular clic en el título correspondiente para mostrar el conversor guardado
+            initTitles[`initTitle${activeConverter}`].click();
+        } else {
+            // Mostrar el primer conversor si no hay ninguno guardado
+            initTitles[`initTitle1`].click();
+        }
     }
-
-    initConverterScript()
+    
+    initConverterScript();
     window.addEventListener('astro:page-load', initConverterScript);
     </script>
+    
     

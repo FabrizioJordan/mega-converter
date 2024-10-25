@@ -36,7 +36,7 @@
 <script>
   // @ts-nocheck
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     function create(tagName) {
       return document.createElement(tagName);
     }
@@ -118,41 +118,41 @@
       }
     });
 
-    // Configuración del input de archivo
-    const files = document.querySelectorAll(".fancy-file-md");
-    Array.from(files).forEach((f) => {
-      const inputFile = f as HTMLInputElement; // Asegura que 'f' es un HTMLInputElement
-      const label = create("label");
-      const span_text = create("span");
-      const span_name = create("span");
-      const span_button = create("span");
+    // Código para manejar el estilo y visualización del input de archivo
+const fancyFileInputs = document.querySelectorAll(".fancy-file-md");
+fancyFileInputs.forEach((inputFile) => {
+  const label = create("label");
+  const spanText = create("span");
+  const spanName = create("span");
+  const spanButton = create("span");
 
-      label.htmlFor = inputFile.id;
+  label.htmlFor = inputFile.id;
 
-      span_text.className = "fancy-file-md__fancy-file-name";
-      span_button.className = "fancy-file-md__fancy-file-button";
+  spanText.className = "fancy-file-md__fancy-file-name";
+  spanButton.className = "fancy-file-md__fancy-file-button";
 
-      span_name.innerHTML = inputFile.dataset.empty || "No files selected";
-      span_button.innerHTML = inputFile.dataset.button || "Browse";
+  spanName.innerHTML = inputFile.dataset.empty || "No file selected";
+  spanButton.innerHTML = inputFile.dataset.button || "Browse";
 
-      label.appendChild(span_text);
-      label.appendChild(span_button);
-      span_text.appendChild(span_name);
-      inputFile.parentNode?.appendChild(label);
+  label.appendChild(spanText);
+  label.appendChild(spanButton);
+  spanText.appendChild(spanName);
+  inputFile.parentNode?.appendChild(label);
 
-      span_name.style.width = span_text.clientWidth - 30 + "px";
+  // Estilo dinámico para el nombre del archivo
+  spanName.style.width = spanText.clientWidth - 30 + "px";
 
-      inputFile.addEventListener("change", (e) => {
-        if (inputFile.files?.length === 0) {
-          span_name.innerHTML = inputFile.dataset.empty || "No files selected";
-        } else if (inputFile.files?.length > 1) {
-          span_name.innerHTML = inputFile.files.length + " files selected";
-        } else {
-          span_name.innerHTML = inputFile.files?.[0].name;
-        }
-        updateFileInputState(); // Asegúrate de actualizar el estado al cambiar
-      });
-    });
+  inputFile.addEventListener("change", (e) => {
+    if (inputFile.files.length === 0) {
+      spanName.innerHTML = inputFile.dataset.empty || "No file selected";
+    } else if (inputFile.files.length > 1) {
+      spanName.innerHTML = `${inputFile.files.length} files selected`;
+    } else {
+      spanName.innerHTML = inputFile.files[0].name;
+    }
+  });
+});
+
   });
 </script>
 
