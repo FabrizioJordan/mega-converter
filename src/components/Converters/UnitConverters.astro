@@ -1,0 +1,95 @@
+---
+import NumConverter from "./Units/NumConverter.astro";
+import SpeedUnitConverter from "./Units/SpeedUnitConverter.astro";
+import StorageConverter from "./Units/StorageConverter.astro";
+import TemperatureConverter from "./Units/TemperatureConverter.astro";
+import TimeUnitConverter from "./Units/TimeUnitConverter.astro";
+---
+
+<section class="flex flex-col gap-24 md:gap-44 text-white">
+    
+    <article class="max-w-3xl flex flex-col justify-center items-start gap-8">
+        <h3 class="text-3xl md:text-4xl text-balance !leading-[5.5rem]">Units Converters.</h3>
+
+        <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
+            <li>
+                <h6 class="unitTitle-1 !text-white">Number</h6>
+            </li>
+            <li>
+                <h6 class="unitTitle-2">Speed units</h6>
+            </li>
+            <li>
+                <h6 class="unitTitle-3">Temperature converter</h6>
+            </li>
+            <li>
+                <h6 class="unitTitle-4">Time converter</h6>
+            </li>
+            <li>
+                <h6 class="unitTitle-5">Storage converter</h6>
+            </li>
+        </ul>
+
+        <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
+            <li class="unitText-1 !opacity-100"><NumConverter /></li>
+            <li class="unitText-2 hidden"><SpeedUnitConverter /></li>
+            <li class="unitText-3 hidden"><TemperatureConverter /></li>
+            <li class="unitText-4 hidden"><TimeUnitConverter /></li>
+            <li class="unitText-5 hidden"><StorageConverter /></li>
+        </ul>
+        
+    </article>
+
+</section>
+
+<script is:inline>
+    // @ts-nocheck
+
+    document.addEventListener("astro:page-load", () => {
+        function initConverterScript () {
+            let $ = selector => document.querySelector(selector);
+            let initTexts = [];
+            let initTitles = [];
+            let quantityOfText = 5;
+
+            for (let i = 1; i <= quantityOfText; i++) {
+                initTexts[`unitText${i}`] = $(`.unitText-${i}`);
+                initTitles[`unitTitle${i}`] = $(`.unitTitle-${i}`);
+
+                if (initTitles[`unitTitle${i}`]) {
+                    initTitles[`unitTitle${i}`].addEventListener('click', () => {
+                        // Ocultar todos los initTexts
+                        for (let j = 1; j <= quantityOfText; j++) {
+                            initTexts[`unitText${j}`].classList.add('hidden');
+                            setTimeout(() => {
+                                initTexts[`unitText${j}`].classList.remove('!opacity-100');
+                            }, 100);
+                            initTitles[`unitTitle${j}`].classList.remove('!text-white');
+                        }
+
+                        // Mostrar el initText correspondiente al initTitle clickeado
+                        initTexts[`unitText${i}`].classList.remove('hidden');
+                        setTimeout(() => {
+                            initTexts[`unitText${i}`].classList.add('!opacity-100');
+                        }, 100);
+                        initTitles[`unitTitle${i}`].classList.add('!text-white');
+
+                        // Guardar el estado en localStorage
+                        localStorage.setItem('activeUnitConverter', i);
+                    });
+                }
+            }
+
+            // Recuperar el estado del conversor activo desde localStorage
+            const activeConverter = localStorage.getItem('activeUnitConverter');
+            if (activeConverter) {
+                // Simular clic en el título correspondiente para mostrar el conversor guardado
+                initTitles[`unitTitle${activeConverter}`].click();
+            } else {
+                // Mostrar el primer conversor si no hay ninguno guardado
+                initTitles[`unitTitle1`].click();
+            }
+        }
+        
+        initConverterScript();
+    });
+</script>

@@ -6,21 +6,21 @@
     <h3 class="text-xl tracking-wider">Storage Unit Converter</h3>
   
     <div class="flex flex-col gap-2 w-full">
-      <label for="inputValue" class="text-sm">Enter Value</label>
+      <label for="inputStorageValue" class="text-sm">Enter Value</label>
       <input
         type="number"
-        id="inputValue"
-        name="inputValue"
+        id="inputStorageValue"
+        name="inputStorageValue"
         class="p-2 rounded-md bg-gray-700 text-white"
       />
     </div>
   
     <div class="flex flex-row gap-4 items-center">
       <div class="flex flex-col gap-2">
-        <label for="inputUnit" class="text-sm">From</label>
+        <label for="inputStorageUnit" class="text-sm">From</label>
         <select
-          id="inputUnit"
-          name="inputUnit"
+          id="inputStorageUnit"
+          name="inputStorageUnit"
           class="p-2 rounded-md bg-gray-700 text-white"
         >
           <option selected value="bytes">Bytes</option>
@@ -32,10 +32,10 @@
       </div>
   
       <div class="flex flex-col gap-2">
-        <label for="outputUnit" class="text-sm">To</label>
+        <label for="outputStorageUnit" class="text-sm">To</label>
         <select
-          id="outputUnit"
-          name="outputUnit"
+          id="outputStorageUnit"
+          name="outputStorageUnit"
           class="p-2 rounded-md bg-gray-700 text-white"
         >
           <option value="bytes">Bytes</option>
@@ -54,53 +54,56 @@
   </section>
   
   <script is:inline>
-  // @ts-nocheck
-  
-  let inputUnit = "bytes";
-  let outputUnit = "kilobytes";
-  let inputValue = 0;
-  let outputValueDecimal = 0;
-  let outputValueBinary = 0;
-  
-  const decimalUnits = {
-    bytes: 1,
-    kilobytes: 1000,
-    megabytes: 1000 ** 2,
-    gigabytes: 1000 ** 3,
-    terabytes: 1000 ** 4,
-  };
-  
-  const binaryUnits = {
-    bytes: 1,
-    kilobytes: 1024,
-    megabytes: 1024 ** 2,
-    gigabytes: 1024 ** 3,
-    terabytes: 1024 ** 4,
-  };
-  
-  function convertStorage() {
-    outputValueDecimal = (inputValue * decimalUnits[inputUnit]) / decimalUnits[outputUnit];
-    outputValueBinary = (inputValue * binaryUnits[inputUnit]) / binaryUnits[outputUnit];
-  
-    document.getElementById("resultDecimal").textContent = `Result (Decimal): ${outputValueDecimal} ${outputUnit}`;
-    document.getElementById("resultBinary").textContent = `Result (Binary): ${outputValueBinary} ${outputUnit}`;
-  }
-  
-  // Añadiendo eventos desde el script
-  document.getElementById("inputValue").addEventListener("input", (e) => {
-    inputValue = parseFloat(e.target.value) || 0;
-    convertStorage();
-  });
-  
-  document.getElementById("inputUnit").addEventListener("change", (e) => {
-    inputUnit = e.target.value;
-    convertStorage();
-  });
-  
-  document.getElementById("outputUnit").addEventListener("change", (e) => {
-    outputUnit = e.target.value;
-    convertStorage();
-  });
+  (function() {
+    // @ts-nocheck
+
+    let inputUnit = "bytes";
+    let outputUnit = "kilobytes";
+    let inputValue = 0;
+    let outputValueDecimal = 0;
+    let outputValueBinary = 0;
+
+    const decimalUnits = {
+        bytes: 1,
+        kilobytes: 1000,
+        megabytes: 1000 ** 2,
+        gigabytes: 1000 ** 3,
+        terabytes: 1000 ** 4,
+    };
+
+    const binaryUnits = {
+        bytes: 1,
+        kilobytes: 1024,
+        megabytes: 1024 ** 2,
+        gigabytes: 1024 ** 3,
+        terabytes: 1024 ** 4,
+    };
+
+    function convertStorage() {
+        outputValueDecimal = (inputValue * decimalUnits[inputUnit]) / decimalUnits[outputUnit];
+        outputValueBinary = (inputValue * binaryUnits[inputUnit]) / binaryUnits[outputUnit];
+
+        document.getElementById("resultDecimal").textContent = `Result (Decimal): ${outputValueDecimal} ${outputUnit}`;
+        document.getElementById("resultBinary").textContent = `Result (Binary): ${outputValueBinary} ${outputUnit}`;
+    }
+
+    // Añadiendo eventos desde el script
+    document.getElementById("inputStorageValue").addEventListener("input", (e) => {
+        inputValue = parseFloat(e.target.value) || 0;
+        convertStorage();
+    });
+
+    document.getElementById("inputStorageUnit").addEventListener("change", (e) => {
+        inputUnit = e.target.value;
+        convertStorage();
+    });
+
+    document.getElementById("outputStorageUnit").addEventListener("change", (e) => {
+        outputUnit = e.target.value;
+        convertStorage();
+    });
+})();
+
   
   </script>
   

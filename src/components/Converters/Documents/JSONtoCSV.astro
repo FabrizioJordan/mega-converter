@@ -1,13 +1,11 @@
 ---
 ---
+
 <section class="flex flex-col gap-4 justify-start items-start text-white">
   <h3 class="converterTitle">Convert JSON to CSV Online and Free!</h3>
 
   <article class="w-full">
-    <div
-      class="file-select flex flex-col justify-center items-stretch"
-      id="src-file1"
-    >
+    <div class="file-select flex flex-col justify-center items-stretch" id="src-file1">
       <span>JSON File</span>
       <input
         type="file"
@@ -21,6 +19,9 @@
       />
     </div>
   </article>
+
+  <p id="errorText" class="text-red-500 hidden">Error message will appear here.</p>
+  
   <button
     id="btn"
     class="px-6 py-2.5 transition-colors duration-300 text-[#ffffff] bg-[#00000000] hover:bg-[#414141] border border-[#3d3d3d] rounded-3xl flex flex-row gap-2 justify-center items-center disabled:bg-[#272727] disabled:text-[#bbbbbb] disabled:cursor-not-allowed"
@@ -29,7 +30,6 @@
 
 <script>
   // @ts-nocheck
-
   document.addEventListener("astro:page-load", () => {
     function create(tagName) {
       return document.createElement(tagName);
@@ -38,13 +38,16 @@
     let csvData = ""; // Variable para almacenar el CSV generado
     let uploadedFileName = ""; // Variable para almacenar el nombre del archivo cargado
 
-    // Detecta cuando se selecciona un archivo
-    document
-      .getElementById("fileInput")
-      .addEventListener("change", handleFileSelect);
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.addEventListener("change", handleFileSelect);
+    }
 
     function handleFileSelect(event) {
       const file = event.target.files[0];
+      const errorText = document.getElementById("errorText");
+      errorText.classList.add("hidden"); // Oculta el mensaje de error al seleccionar un archivo
+
       if (file) {
         uploadedFileName = file.name.replace(/\.[^/.]+$/, ""); // Guarda el nombre del archivo sin la extensión
         const reader = new FileReader();
@@ -60,17 +63,18 @@
                 handle(arrayData); // Convierte el array u objeto encontrado a CSV
                 document.getElementById("btn").removeAttribute("disabled"); // Habilita el botón si el archivo es válido
               } else {
-                alert("Invalid JSON structure. No array or object found.");
-                document
-                  .getElementById("btn")
-                  .setAttribute("disabled", "disabled"); // Deshabilita el botón si no se encuentra un array u objeto
+                errorText.textContent = "Invalid JSON structure. No array or object found.";
+                errorText.classList.remove("hidden"); // Muestra el mensaje de error
+                document.getElementById("btn").setAttribute("disabled", "disabled"); // Deshabilita el botón si no se encuentra un array u objeto
               }
             } catch (error) {
-              alert("Invalid JSON file. Please select a valid JSON file.");
+              errorText.textContent = "Invalid JSON file. Please select a valid JSON file.";
+              errorText.classList.remove("hidden"); // Muestra el mensaje de error
               document.getElementById("btn").setAttribute("disabled", "disabled"); // Deshabilita el botón si el JSON no es válido
             }
           } else {
-            alert("Error reading file. Expected a string.");
+            errorText.textContent = "Error reading file. Expected a string.";
+            errorText.classList.remove("hidden"); // Muestra el mensaje de error
           }
         };
         reader.readAsText(file); // Lee el archivo como texto
@@ -97,6 +101,8 @@
 
     // Convierte el JSON a CSV
     function handle(data) {
+      const errorText = document.getElementById("errorText");
+
       if (Array.isArray(data) && data.length > 0 && typeof data[0] === "object") {
         const headers = Object.keys(data[0]).join(", ");
         const main = data.map((item) =>
@@ -114,18 +120,24 @@
         });
         csvData = [headers, ...main].join("\n");
       } else {
-        alert("Invalid JSON structure. The array or object should contain valid data.");
+        errorText.textContent = "Invalid JSON structure. The array or object should contain valid data.";
+        errorText.classList.remove("hidden"); // Muestra el mensaje de error
         document.getElementById("btn").setAttribute("disabled", "disabled");
       }
     }
 
-    document.getElementById("btn").addEventListener("click", () => {
-      if (csvData) {
-        startCSVDownload(csvData); // Llama a la función de descarga si el CSV está generado
-      } else {
-        alert("No CSV data available. Please select a JSON file first.");
-      }
-    });
+    const btn = document.getElementById("btn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        if (csvData) {
+          startCSVDownload(csvData); // Llama a la función de descarga si el CSV está generado
+        } else {
+          const errorText = document.getElementById("errorText");
+          errorText.textContent = "No CSV data available. Please select a JSON file first.";
+          errorText.classList.remove("hidden"); // Muestra el mensaje de error
+        }
+      });
+    }
 
     function startCSVDownload(csv) {
       const blob = new Blob([csv], { type: "text/csv" });
@@ -210,16 +222,10 @@
     color: white;
     white-space: nowrap;
     border-radius: 0 8px 8px 0;
-    padding-left: 0.7em;
-    cursor: pointer;
+    border-left: none;
   }
 
-  .fancy-file.red + label > .fancy-file__fancy-file-button {
-    background-color: #d9534f;
-    border-color: #d64641;
-  }
-  .fancy-file.green + label > .fancy-file__fancy-file-button {
-    background-color: #5cb85c;
-    border-color: #4fb04f;
+  .fancy-file {
+    display: none;
   }
 </style>

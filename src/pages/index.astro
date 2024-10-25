@@ -1,23 +1,54 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import Init from '../components/Init.astro';
+import IndexConverters from '../components/Converters/IndexConverters.astro';
+import UnitConverters from '../components/Converters/UnitConverters.astro'; // Asegúrate de que este componente esté creado
 import Footer from '../components/Footer.astro';
-
 import SemiFooter from "../components/SemiFooter.astro";
-
-import FileConverters from '../components/FileConverters.astro';
 ---
 
 <Layout title="Mega Converter">
-	<Header />
-	<main class="scroll-smooth w-full flex flex-col gap-8 px-6 md:px-10 pt-12 pb-6 max-w-5xl m-auto  [&>hr]:border-[#303436]">
-		<Init />
-		<hr>
-		<FileConverters />
+	<Header page='index' />
+	<main class="scroll-smooth w-full flex flex-col gap-2 px-6 md:px-10 pt-12 pb-6 max-w-5xl m-auto [&>hr]:border-[#303436]">
+        <h2 class="text-5xl md:text-6xl text-balance !leading-[5.5rem] max-w-2xl">Independent Software Converter.</h2>
+
+		<div class="flex flex-col gap-2 justify-center items-start">
+			<label for="converterType" class="text-white">Choose Converter Type:</label>
+			<select id="converterType" class="mt-2 mb-4 px-4 py-2 bg-gray-800 text-white rounded">
+				<option value="index">Index Converters</option>
+				<option value="unit">Unit Converters</option>
+			</select>
+		</div>
+
+		<div id="converterContainer">
+			<div id="indexContainer"> <!-- Contenedor para IndexConverters -->
+				<IndexConverters />
+			</div>
+			<div id="unitContainer" style="display: none;"> <!-- Contenedor para UnitConverters -->
+				<UnitConverters />
+			</div>
+		</div>
+
 		<SemiFooter />
 	</main>
 	<Footer />
 </Layout>
 
+<script>
+	// @ts-nocheck
 
+	document.addEventListener('DOMContentLoaded', () => {
+		document.getElementById('converterType').addEventListener('change', function () {
+			const indexContainer = document.getElementById('indexContainer');
+			const unitContainer = document.getElementById('unitContainer');
+
+			if (this.value === 'index') {
+				indexContainer.style.display = 'block';
+				unitContainer.style.display = 'none';
+			} else {
+				indexContainer.style.display = 'none';
+				unitContainer.style.display = 'block';
+			}
+		});
+	});
+</script>

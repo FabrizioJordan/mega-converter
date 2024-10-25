@@ -1,87 +1,88 @@
----
----
+<section class="flex flex-col gap-4 justify-start items-start max-w-lg min-w-60">
+  <h3 class="converterTitle">Speed Unit Converter</h3>
 
-<section class="flex flex-col gap-4 justify-start items-start max-w-lg">
-    <h3 class="converterTitle">Speed Unit Converter</h3>
-  
-    <!-- Input for Speed -->
-    <label for="speedInput">Enter speed</label>
-    <input id="speedInput" type="number" placeholder="Enter speed" class="p-2 border rounded text-black min-w-64" />
-  
-    <!-- Input Unit Dropdown -->
-    <label for="inputUnitSelect">From</label>
-    <select id="inputUnitSelect" class="p-2 border rounded text-black min-w-64">
+  <!-- Input for Speed -->
+  <label for="speedInputConverter1">Enter speed</label>
+  <input
+      id="speedInputConverter1"
+      type="number"
+      placeholder="Enter speed"
+      class="p-2 border rounded-lg text-black min-w-60"
+  />
+
+  <!-- Input Unit Dropdown -->
+  <label for="inputUnitSelect1">From</label>
+  <select id="inputUnitSelect1" class="p-2 border rounded-lg text-black min-w-60">
       <option selected value="km/h">Kilometers per hour (km/h)</option>
       <option value="m/s">Meters per second (m/s)</option>
       <option value="mph">Miles per hour (mph)</option>
       <option value="ft/s">Feet per second (ft/s)</option>
-    </select>
-  
-    <!-- Output Unit Dropdown -->
-    <label for="outputUnitSelect">To</label>
-    <select id="outputUnitSelect" class="p-2 border rounded text-black min-w-64">
+  </select>
+
+  <!-- Output Unit Dropdown -->
+  <label for="outputUnitSelect1">To</label>
+  <select id="outputUnitSelect1" class="p-2 border rounded-lg text-black min-w-60">
       <option value="km/h">Kilometers per hour (km/h)</option>
       <option selected value="m/s">Meters per second (m/s)</option>
       <option value="mph">Miles per hour (mph)</option>
       <option value="ft/s">Feet per second (ft/s)</option>
-    </select>
-  
-    <!-- Output Display -->
-    <p class="mt-4">Converted speed: <span id="outputSpeed"></span> <span id="outputUnit"></span></p>
-  </section>
-  
-  <script>
-    // @ts-nocheck
+  </select>
 
-    // JavaScript code to handle events and conversion logic
-    let inputSpeed = 0;
-    let inputUnit = 'km/h';
-    let outputUnit = 'm/s';
-    let outputSpeed = '';
-  
-    const units = {
+  <!-- Output Display -->
+  <p class="mt-4">
+      Converted speed: <span id="outputSpeedConverter1"></span>
+      <span id="outputUnitConverter1"></span>
+  </p>
+</section>
+
+<script>
+  // @ts-nocheck
+
+  let inputSpeed = 0;
+  let inputUnit = 'km/h';
+  let outputUnit = 'm/s';
+  let outputSpeed = '';
+
+  const units = {
       'km/h': 1,
       'm/s': 3.6,
       'mph': 1.60934,
       'ft/s': 1.09728,
-    };
-  
-    function convertSpeed() {
-        const speedInKmh = inputSpeed * units[inputUnit];
-        let result = speedInKmh / units[outputUnit];
-        
-        // Si el número es entero, lo mostramos sin decimales
-        if (Number.isInteger(result)) {
-            outputSpeed = result.toString();
-        } else {
-            // Si no es entero, lo mostramos con hasta dos decimales prácticos
-            outputSpeed = result.toFixed(2);
-        }
+  };
 
-        document.getElementById('outputSpeed').textContent = outputSpeed;
-        document.getElementById('outputUnit').textContent = outputUnit;
-    }
+  function convertSpeed() {
+      const speedInKmh = inputSpeed * units[inputUnit];
+      let result = speedInKmh / units[outputUnit];
 
-  
-    document.getElementById('speedInput').addEventListener('input', (e) => {
+      if (Number.isInteger(result)) {
+          outputSpeed = result.toString();
+      } else {
+          outputSpeed = result.toFixed(2);
+      }
+
+      document.getElementById('outputSpeedConverter1').textContent = outputSpeed;
+      document.getElementById('outputUnitConverter1').textContent = outputUnit;
+  }
+
+  document.getElementById('speedInputConverter1').addEventListener('input', (e) => {
       inputSpeed = parseFloat(e.target.value) || 0;
       convertSpeed();
-    });
-  
-    document.getElementById('inputUnitSelect').addEventListener('change', (e) => {
+  });
+
+  document.getElementById('inputUnitSelect1').addEventListener('change', (e) => {
       inputUnit = e.target.value;
       convertSpeed();
-    });
-  
-    document.getElementById('outputUnitSelect').addEventListener('change', (e) => {
+  });
+
+  document.getElementById('outputUnitSelect1').addEventListener('change', (e) => {
       outputUnit = e.target.value;
       convertSpeed();
-    });
-  </script>
-  
-  <style is:inline>
+  });
+</script>
+
+
+<style is:inline>
     @tailwind base;
     @tailwind components;
     @tailwind utilities;
-  </style>
-  
+</style>

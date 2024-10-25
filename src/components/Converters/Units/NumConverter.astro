@@ -2,75 +2,83 @@
 ---
 
 <section class="flex flex-col gap-4 justify-start items-start text-white max-w-lg">
-    <h3 class="converterTitle">Numeric System Converter</h3>
+  <h3 class="converterTitle">Numeric System Converter</h3>
+
+  <!-- Select base -->
+  <div class="w-full text-white">
+    <label for="inputBase" class="block mb-2">Select the input base:</label>
+    <select id="inputBase" class="w-full p-2 bg-gray-800 text-white rounded">
+      <option value="2">Binary (Base 2)</option>
+      <option value="8">Octal (Base 8)</option>
+      <option value="10" selected>Decimal (Base 10)</option>
+      <option value="16">Hexadecimal (Base 16)</option>
+    </select>
+  </div>
   
-    <!-- Input number -->
-    <div class="w-full">
-      <label for="inputNumber" class="block mb-2">Enter a number:</label>
-      <input id="inputNumber" type="text" class="w-full p-2 bg-gray-800 text-white rounded" placeholder="Enter a number in any system" />
-    </div>
+  <!-- Input number -->
+  <div class="w-full">
+    <label for="inputNumber" class="block mb-2">Enter a number:</label>
+    <input id="inputNumber" type="text" class="w-full p-2 bg-gray-800 text-white rounded" placeholder="Enter a number in any system" />
+  </div>
+
+  <!-- Error message -->
+  <div id="errorMessage" class="text-red-500 mb-2 hidden">Please enter a valid number for the selected base</div>
+
+  <!-- Output bases -->
+  <div class="w-full text-white">
+    <p>Converted values:</p>
+    <ul class="list-disc ml-5">
+      <li>Binary: <span id="binaryOutput">-</span></li>
+      <li>Octal: <span id="octalOutput">-</span></li>
+      <li>Decimal: <span id="decimalOutput">-</span></li>
+      <li>Hexadecimal: <span id="hexadecimalOutput">-</span></li> <!-- Cambié el id aquí -->
+    </ul>
+  </div>
+
+  <!-- Convert button -->
+  <button id="convertBtn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors duration-300">
+    Convert
+  </button>
+</section>
+
+<script>
+// @ts-nocheck
+
+const inputNumber = document.getElementById('inputNumber');
+const inputBase = document.getElementById('inputBase');
+const convertBtn = document.getElementById('convertBtn');
+
+const binaryOutput = document.getElementById('binaryOutput');
+const octalOutput = document.getElementById('octalOutput');
+const decimalOutput = document.getElementById('decimalOutput');
+const hexadecimalOutput = document.getElementById('hexadecimalOutput'); // Cambié el id aquí
+const errorMessage = document.getElementById('errorMessage');
+
+// Convert and display values
+convertBtn.addEventListener('click', () => {
+  const num = inputNumber.value.trim();
+  const base = parseInt(inputBase.value, 10);
   
-    <!-- Select base -->
-    <div class="w-full text-white">
-      <label for="inputBase" class="block mb-2">Select the input base:</label>
-      <select id="inputBase" class="w-full p-2 bg-gray-800 text-white rounded">
-        <option value="2">Binary (Base 2)</option>
-        <option value="8">Octal (Base 8)</option>
-        <option value="10" selected>Decimal (Base 10)</option>
-        <option value="16">Hexadecimal (Base 16)</option>
-      </select>
-    </div>
-  
-    <!-- Output bases -->
-    <div class="w-full text-white">
-      <p>Converted values:</p>
-      <ul class="list-disc ml-5">
-        <li>Binary: <span id="binaryOutput">-</span></li>
-        <li>Octal: <span id="octalOutput">-</span></li>
-        <li>Decimal: <span id="decimalOutput">-</span></li>
-        <li>Hexadecimal: <span id="hexOutput">-</span></li>
-      </ul>
-    </div>
-  
-    <!-- Convert button -->
-    <button id="convertBtn" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors duration-300">
-      Convert
-    </button>
-  </section>
-  
-  <script>
-  // @ts-nocheck
-  
-  const inputNumber = document.getElementById('inputNumber');
-  const inputBase = document.getElementById('inputBase');
-  const convertBtn = document.getElementById('convertBtn');
-  
-  const binaryOutput = document.getElementById('binaryOutput');
-  const octalOutput = document.getElementById('octalOutput');
-  const decimalOutput = document.getElementById('decimalOutput');
-  const hexOutput = document.getElementById('hexOutput');
-  
-  // Convert and display values
-  convertBtn.addEventListener('click', () => {
-    const num = inputNumber.value.trim();
-    const base = parseInt(inputBase.value, 10);
-  
-    if (!num || isNaN(parseInt(num, base))) {
-      alert("Please enter a valid number for the selected base");
+  // Reset error message
+  errorMessage.classList.add('hidden');
+
+  if (!num || isNaN(parseInt(num, base))) {
+      errorMessage.classList.remove('hidden'); // Show error message
       return;
-    }
-  
-    try {
+  }
+
+  try {
       const decimalValue = parseInt(num, base);
       binaryOutput.textContent = decimalValue.toString(2);
       octalOutput.textContent = decimalValue.toString(8);
       decimalOutput.textContent = decimalValue.toString(10);
-      hexOutput.textContent = decimalValue.toString(16).toUpperCase();
-    } catch (error) {
-      alert("An error occurred during conversion");
-    }
-  });
-  </script>
+      hexadecimalOutput.textContent = decimalValue.toString(16).toUpperCase(); // Cambié el id aquí
+  } catch (error) {
+      errorMessage.classList.remove('hidden'); // Show error message
+  }
+});
+</script>
+
   
   <style is:inline>
   @tailwind base;

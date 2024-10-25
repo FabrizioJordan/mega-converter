@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import UnitConverters from '../components/Converters/UnitConverters.astro';
+
+import SemiFooter from "../components/SemiFooter.astro";
+
+import FileConverters from '../components/FileConverters.astro';
+---
+
+<Layout title="Mega Converter | Unit Converters">
+	<Header page='units' />
+	<main class="scroll-smooth w-full flex flex-col gap-8 px-6 md:px-10 pt-12 pb-6 max-w-5xl m-auto  [&>hr]:border-[#303436]">
+		<UnitConverters />
+        
+		<SemiFooter />
+	</main>
+	<Footer />
+</Layout>
+
+
