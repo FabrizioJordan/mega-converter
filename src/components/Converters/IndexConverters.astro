@@ -17,38 +17,38 @@ import FileConverters from "./FileConverters.astro";
         <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white grid grid-cols-2 justify-start items-center gap-4 tracking-wide text-lg w-full">
             <li>
                 <h6 class="initTitle-1 !text-white">
-                    Image Base64 Converter
-                </h6>
-            </li>
-            <li>
-                <h6 class="initTitle-2">
-                    Currency converter
-                </h6>
-            </li>
-            <li>
-                <h6 class="initTitle-3">
                     Color converter
                 </h6>
             </li>
             <li>
-                <h6 class="initTitle-4">
+                <h6 class="initTitle-2">
                     JSONtoCSV and MarkdownConverter
+                </h6>
+            </li>
+            <li>
+                <h6 class="initTitle-3">
+                    Currency converter
+                </h6>
+            </li>
+            <li>
+                <h6 class="initTitle-4">
+                    Image Base64 Converter
                 </h6>
             </li>
         </ul>
 
         <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500 w-full bg-[#ffffff1c] rounded-lg p-4">
             <li class="initText-1 !opacity-100">
-                <ImageConverter />
-            </li>
-            <li class="initText-2 hidden">
-                <Currency />
-            </li>
-            <li class="initText-3 hidden">
                 <ColorConverter />
             </li>
-            <li class="initText-4 hidden">
+            <li class="initText-2 hidden">
                 <FileConverters />
+            </li>
+            <li class="initText-3 hidden">
+                <Currency />
+            </li>
+            <li class="initText-4 hidden">
+                <ImageConverter />
             </li>
         </ul>
     </article>
