@@ -1,0 +1,94 @@
+---
+import LengthConverter from "./Length/LengthConverter.astro";
+import MassWeightConverter from "./Length/MassWeightConverter.astro";
+import TemperatureConverter from "./Units/TemperatureConverter.astro";
+// verificar si funciona bien, parece que se juntaron entre ellos los conversores
+
+---
+
+<section class="converter-section">
+    <article class="max-w-2xl flex flex-col justify-center items-start gap-8">
+        <h3 class="text-2xl md:text-3xl text-balance">Length Converters.</h3>
+
+        <!-- Lista de títulos de convertidores con clases específicas -->
+        <ul class="converter-titles [&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white grid grid-cols-2 justify-start items-center gap-4 tracking-wide text-lg w-full">
+            <li>
+                <h6 class="converterTitle-1 !text-white">Weight and Mass Converter</h6>
+            </li>
+            <li>
+                <h6 class="converterTitle-2">Length Converter</h6>
+            </li>
+            <li>
+                <h6 class="converterTitle-3">Temperature Converter</h6>
+            </li>
+        </ul>
+
+        <!-- Contenedores de los convertidores con clases específicas -->
+        <ul class="converter-contents flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500 w-full bg-[#ffffff1c] rounded-lg p-4">
+            <li class="converterContent-1 !opacity-100">
+                <MassWeightConverter />
+            </li>
+            <li class="converterContent-2 hidden">
+                <LengthConverter />
+            </li>
+            <li class="converterContent-3 hidden">
+                <TemperatureConverter />
+            </li>
+        </ul>
+    </article>
+</section>
+
+<script is:inline>
+    // @ts-nocheck
+
+    document.addEventListener("astro:page-load", () => {
+        function initCustomConverterScript() {
+            let $ = selector => document.querySelector(selector);
+            
+            // Objetos específicos para este componente
+            let converterContents = {};
+            let converterTitles = {};
+            let totalConverters = 3;
+
+            for (let i = 1; i <= totalConverters; i++) {
+                converterContents[`content${i}`] = $(`.converterContent-${i}`);
+                converterTitles[`title${i}`] = $(`.converterTitle-${i}`);
+
+                if (converterTitles[`title${i}`]) {
+                    converterTitles[`title${i}`].addEventListener('click', () => {
+                        // Ocultar todos los contenidos de convertidores
+                        for (let j = 1; j <= totalConverters; j++) {
+                            converterContents[`content${j}`].classList.add('hidden');
+                            setTimeout(() => {
+                                converterContents[`content${j}`].classList.remove('!opacity-100');
+                            }, 100);
+                            converterTitles[`title${j}`].classList.remove('!text-white');
+                        }
+
+                        // Mostrar el contenido del convertidor correspondiente
+                        converterContents[`content${i}`].classList.remove('hidden');
+                        setTimeout(() => {
+                            converterContents[`content${i}`].classList.add('!opacity-100');
+                        }, 100);
+                        converterTitles[`title${i}`].classList.add('!text-white');
+
+                        // Guardar el estado en localStorage
+                        localStorage.setItem('activeCustomConverter', i);
+                    });
+                }
+            }
+
+            // Recuperar el estado del convertidor activo desde localStorage
+            const activeConverter = localStorage.getItem('activeCustomConverter');
+            if (activeConverter) {
+                // Simular clic en el título correspondiente para mostrar el convertidor guardado
+                converterTitles[`title${activeConverter}`].click();
+            } else {
+                // Mostrar el primer convertidor si no hay ninguno guardado
+                converterTitles[`title1`].click();
+            }
+        }
+
+        initCustomConverterScript();
+    });
+</script>

@@ -1,65 +1,62 @@
 ---
-import HEXtoRGB from "./Colors/HEXtoRGB.astro";
-import HSL from "./Colors/HSL.astro";
 import Currency from "./Currency.astro";
 
 import EMtoPX from "./Text/EMtoPX.astro";
-
-import MassWeightConverter from "./Length/MassWeightConverter.astro";
-import LengthConverter from "./Length/LengthConverter.astro";
+import ColorConverter from "./Colors/ColorConverter.astro";
+import ImageConverter from "./ImageConverter.astro";
+import FileConverters from "../FileConverters.astro";
 
 ---
 
 
-<section class="flex flex-col gap-24 md:gap-44 text-white">
+<section class="">
     
     <article class="max-w-2xl flex flex-col justify-center items-start gap-8">
-        <h3 class="text-3xl md:text-4xl text-balance !leading-[5.5rem]">Software Converters.</h3>
+        <h3 class="text-2xl md:text-3xl text-balance">Index Converters.</h3>
 
-        <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
+        <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white grid grid-cols-3 justify-start items-center gap-4 tracking-wide text-lg w-full">
             <li>
                 <h6 class="initTitle-1 !text-white">
-                    Not one
+                    Image Base64 Converter
                 </h6>
             </li>
             <li>
                 <h6 class="initTitle-2">
-                    Converter
-                </h6>
-            </li>
-            <li>
-                <h6 class="initTitle-3">    
                     EM a PX
                 </h6>
             </li>
             <li>
-                <h6 class="initTitle-4">
+                <h6 class="initTitle-3">
                     Currency converter
                 </h6>
             </li>
             <li>
-                <h6 class="initTitle-5">
+                <h6 class="initTitle-4">
                     Color converter
+                </h6>
+            </li>
+            <li>
+                <h6 class="initTitle-5">
+                    JSONtoCSV and MarkdownConverter
                 </h6>
             </li>
         </ul>
 
-        <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
+        <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500 w-full bg-[#ffffff1c] rounded-lg p-4">
             <li class="initText-1 !opacity-100">
+                <ImageConverter />
             </li>
-            <li class="initText-2">
-                <MassWeightConverter />
-            </li>
-            <li class="initText-3 hidden">
+            <li class="initText-2 hidden">
                 <EMtoPX />
             </li>
-            <li class="initText-4 hidden">
+            <li class="initText-3 hidden">
                 <Currency />
             </li>
-            <li class="initText-5 hidden flex flex-col gap-8">
-                <h1 class="text-lg">Color Converter</h1>
-                <HEXtoRGB />
-                <HSL />
+            <li class="initText-4 hidden">
+                <ColorConverter />
+            </li>
+            <li class="initText-5 hidden">
+                <FileConverters />
             </li>
         </ul>
     </article>

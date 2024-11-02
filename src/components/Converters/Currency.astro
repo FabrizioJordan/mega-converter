@@ -3,8 +3,8 @@
 ---
 
 <section>
-  <article class="flex flex-col gap-4 justify-center items-start text-black">
-    <h2 class="text-white">Currency Converter</h2>
+  <article class="flex flex-col gap-4 justify-center items-start">
+    <h2 class="converterTitle">Currency Converter</h2>
     <div class="flex flex-row gap-4 items-center">
       <div class="flex flex-col gap-4">
         <div class="custom-select">
@@ -14,7 +14,7 @@
           </select>
         </div>
         <input
-          class="rounded-lg px-4 py-2"
+          class="rounded-lg px-4 py-2 text-black"
           type="text"
           name=""
           id="input_currency"
@@ -28,7 +28,7 @@
           </select>
         </div>
         <input
-          class="rounded-lg px-4 py-2 bg-[#ffffff6e]"
+          class="rounded-lg px-4 py-2 bg-[#ffffff6e] text-black"
           type="text"
           name=""
           id="output_currency"
@@ -39,16 +39,16 @@
     <div class="flex flex-row gap-4">
       <!-- Botón para intercambiar las divisas -->
       <button
-        class="text-white rounded-lg bg-[#3d3d3d] px-6 py-2.5"
+        class="rounded-lg bg-[#005647] px-6 py-2.5"
         id="swapButton">Swap</button
       >
       <button
-        class="text-white rounded-lg bg-[#1d5b00] px-6 py-2.5"
+        class="rounded-lg bg-[#1d5b00] px-6 py-2.5"
         id="convertButton">Convert</button
       >
     </div>
 
-    <p class="alert text-white text-lg font-medium tracking-wider"></p>
+    <p class="alert text-lg font-medium tracking-wider"></p>
   </article>
 </section>
 
@@ -58,7 +58,7 @@
   }
 
   .custom-select select {
-    @apply appearance-none w-full text-lg bg-white border border-[#caced1] rounded-lg text-black cursor-pointer px-3 py-1.5;
+    @apply appearance-none w-full text-lg border border-[#caced1] rounded-lg text-black cursor-pointer px-3 py-1.5;
   }
 
   .custom-select::before,

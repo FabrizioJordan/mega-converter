@@ -12,6 +12,7 @@ A web app for converting various units and formats in a simple and intuitive way
 | :-------------------------------  | :---------- | :------------------------------------------------------- |
 | `JSON to CSV`                     | `Yes`       | Converts JSON files to CSV format.                       |
 | `EM to PX`                        | `Yes`       | Converts EM units to PX units for responsive design.     |
+| `Currency Converter`              | `Yes`       | Converts multiple global currencies in real time.        |
 | `Color converter`                 | `Yes`       | Converts color codes between RGB, HEX, and HSL formats.  |
 | `Markdown to HTML`                | `Yes`       | Converts Markdown text to HTML and vice versa.           |
 | `Storage Units Converter`         | `Yes`       | Converts between bytes, KB, MB, GB, and TB.              |
@@ -35,15 +36,14 @@ C : Completed
 
 grupo 1:
 C. Conversor de JSON a CSV.
+C. Conversor Markdown a HTML: 
+  Un conversor que convierta texto en formato Markdown a HTML y viceversa.
 C. Conversor de EM a PX.
 C. Conversor de color (RGB, HEX y HSL): 
   Convierte códigos de color entre formatos como RGB, HEX, HSL.
-C. Conversor Markdown a HTML: 
-  Un conversor que convierta texto en formato Markdown a HTML y viceversa.
-C. Conversor de unidades de almacenamiento: 
-  Convierte entre bytes, kilobytes, megabytes, gigabytes, terabytes, etc.
 C. Conversor de formato de imagen (base64 a imagen): 
   Convierte imágenes entre formatos comunes como PNG, JPEG, BMP, o desde/para base64.
+C. Conversor de Monedas.
 
 grupo 2:
 C. Conversor de sistemas numéricos: 
@@ -52,14 +52,16 @@ C. Conversor de unidades de tiempo:
   Convierte entre diferentes unidades de tiempo (segundos, minutos, horas, días, semanas, meses, años).
 C. Conversor de unidades de velocidad: 
   Convierte entre diferentes unidades de velocidad como kilómetros por hora, metros por segundo, millas por hora, etc.
+C. Conversor de unidades de almacenamiento: 
+  Convierte entre bytes, kilobytes, megabytes, gigabytes, terabytes, etc.
 
-grupo 3: (longitudes)
-C. Conversor de temperatura:
-  Convierte entre Celsius, Fahrenheit y Kelvin.
+grupo 3:
 C. Conversor de peso y masa:
   Convierte entre gramos, kilogramos, libras, onzas, toneladas.
 C. Conversor de longitudes:
   Convierte entre metros, kilómetros, millas, pies, pulgadas, yardas, etc.
+C. Conversor de temperatura:
+  Convierte entre Celsius, Fahrenheit y Kelvin.
 
 -->
 <!--

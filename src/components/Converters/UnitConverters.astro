@@ -2,16 +2,15 @@
 import NumConverter from "./Units/NumConverter.astro";
 import SpeedUnitConverter from "./Units/SpeedUnitConverter.astro";
 import StorageConverter from "./Units/StorageConverter.astro";
-import TemperatureConverter from "./Units/TemperatureConverter.astro";
 import TimeUnitConverter from "./Units/TimeUnitConverter.astro";
 ---
 
-<section class="flex flex-col gap-24 md:gap-44 text-white">
+<section class="">
     
     <article class="max-w-3xl flex flex-col justify-center items-start gap-8">
-        <h3 class="text-3xl md:text-4xl text-balance !leading-[5.5rem]">Units Converters.</h3>
+        <h3 class="text-2xl md:text-3xl text-balance">Units Converters.</h3>
 
-        <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white flex flex-row justify-center items-center gap-8 tracking-wide text-lg">
+        <ul class="[&_h6]:transition-colors [&_h6]:duration-300 [&_h6]:cursor-pointer [&_h6]:text-[#8a847a] hover:[&_h6]:text-white grid grid-cols-2 justify-start items-center gap-4 tracking-wide text-lg w-full">
             <li>
                 <h6 class="unitTitle-1 !text-white">Number</h6>
             </li>
@@ -19,22 +18,18 @@ import TimeUnitConverter from "./Units/TimeUnitConverter.astro";
                 <h6 class="unitTitle-2">Speed units</h6>
             </li>
             <li>
-                <h6 class="unitTitle-3">Temperature converter</h6>
+                <h6 class="unitTitle-3">Time converter</h6>
             </li>
             <li>
-                <h6 class="unitTitle-4">Time converter</h6>
-            </li>
-            <li>
-                <h6 class="unitTitle-5">Storage converter</h6>
+                <h6 class="unitTitle-4">Storage converter</h6>
             </li>
         </ul>
 
-        <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500">
+        <ul class="flex flex-row [&>li]:opacity-0 [&>li]:transition-opacity [&>li]:duration-500 w-full bg-[#ffffff1c] rounded-lg p-4">
             <li class="unitText-1 !opacity-100"><NumConverter /></li>
             <li class="unitText-2 hidden"><SpeedUnitConverter /></li>
-            <li class="unitText-3 hidden"><TemperatureConverter /></li>
-            <li class="unitText-4 hidden"><TimeUnitConverter /></li>
-            <li class="unitText-5 hidden"><StorageConverter /></li>
+            <li class="unitText-3 hidden"><TimeUnitConverter /></li>
+            <li class="unitText-4 hidden"><StorageConverter /></li>
         </ul>
         
     </article>
@@ -49,7 +44,7 @@ import TimeUnitConverter from "./Units/TimeUnitConverter.astro";
             let $ = selector => document.querySelector(selector);
             let initTexts = [];
             let initTitles = [];
-            let quantityOfText = 5;
+            let quantityOfText = 4;
 
             for (let i = 1; i <= quantityOfText; i++) {
                 initTexts[`unitText${i}`] = $(`.unitText-${i}`);
