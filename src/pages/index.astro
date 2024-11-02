@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SemiFooter from "../components/SemiFooter.astro";
+
 import IndexConverters from '../components/Converters/IndexConverters.astro';
 import UnitConverters from '../components/Converters/UnitConverters.astro';
 import LengthConverters from '../components/Converters/LengthConverters.astro'; // Asegúrate de que este componente esté creado
-import Footer from '../components/Footer.astro';
-import SemiFooter from "../components/SemiFooter.astro";
+import TextConverters from '../components/Converters/TextConverters.astro';
 ---
 
 <Layout title="Mega Converter">
@@ -19,6 +21,7 @@ import SemiFooter from "../components/SemiFooter.astro";
 				<option value="index">Index Converters</option>
 				<option value="unit">Unit Converters</option>
 				<option value="length">Length Converters</option> <!-- Nueva opción añadida -->
+				<option value="text">Text Converters</option> <!-- Nueva opción añadida -->
 			</select>
 		</div>
 
@@ -31,6 +34,9 @@ import SemiFooter from "../components/SemiFooter.astro";
 			</div>
 			<div id="lengthContainer" style="display: none;"> <!-- Nuevo contenedor para LengthConverters -->
 				<LengthConverters />
+			</div>
+			<div id="textContainer" style="display: none;"> <!-- Nuevo contenedor para LengthConverters -->
+				<TextConverters />
 			</div>
 		</div>
 
@@ -47,20 +53,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		const indexContainer = document.getElementById('indexContainer');
 		const unitContainer = document.getElementById('unitContainer');
 		const lengthContainer = document.getElementById('lengthContainer'); // Referencia al nuevo contenedor
-
+		const textContainer = document.getElementById('textContainer');
+		
 		// Mostrar u ocultar los contenedores según la selección
 		if (this.value === 'index') {
 			indexContainer.style.display = 'block';
 			unitContainer.style.display = 'none';
 			lengthContainer.style.display = 'none';
+			textContainer.style.display = 'none';
 		} else if (this.value === 'unit') {
 			indexContainer.style.display = 'none';
 			unitContainer.style.display = 'block';
 			lengthContainer.style.display = 'none';
+			textContainer.style.display = 'none';
 		} else if (this.value === 'length') {
 			indexContainer.style.display = 'none';
 			unitContainer.style.display = 'none';
 			lengthContainer.style.display = 'block';
+			textContainer.style.display = 'none';
+		} else if (this.value === 'text') {
+			indexContainer.style.display = 'none';
+			unitContainer.style.display = 'none';
+			lengthContainer.style.display = 'none';
+			textContainer.style.display = 'block';
 		}
 	});
 });

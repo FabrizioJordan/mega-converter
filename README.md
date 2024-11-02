@@ -11,7 +11,6 @@ A web app for converting various units and formats in a simple and intuitive way
 | Converter                         | Completed?  | Description                                              |
 | :-------------------------------  | :---------- | :------------------------------------------------------- |
 | `JSON to CSV`                     | `Yes`       | Converts JSON files to CSV format.                       |
-| `EM to PX`                        | `Yes`       | Converts EM units to PX units for responsive design.     |
 | `Currency Converter`              | `Yes`       | Converts multiple global currencies in real time.        |
 | `Color converter`                 | `Yes`       | Converts color codes between RGB, HEX, and HSL formats.  |
 | `Markdown to HTML`                | `Yes`       | Converts Markdown text to HTML and vice versa.           |
@@ -19,6 +18,8 @@ A web app for converting various units and formats in a simple and intuitive way
 | `Image Format Converter`          | `Yes`       | Converts image formats (PNG, JPEG, BMP, Base64).         |
 | `Number System Converter`         | `Yes`       | Converts between binary, decimal, octal, and hexadecimal.|
 | `Inches Converter`                | `Yes`       | Converts Inches to CM and PX.                            |
+| `EM to PX`                        | `Yes`       | Converts EM units to PX units for responsive design.     |
+| `CM to PX`                        | `Yes`       | Converts CM units to PX units.                           |
 | `Time Units Converter`            | `Yes`       | Converts between seconds, minutes, hours, days, etc.     |
 | `Speed Units Converter`           | `Yes`       | Converts speed units like km/h, m/s, mph.                |
 | `Temperature Converter`           | `Yes`       | Converts between Celsius, Fahrenheit and Kelvin.         |
@@ -38,7 +39,6 @@ grupo 1:
 C. Conversor de JSON a CSV.
 C. Conversor Markdown a HTML: 
   Un conversor que convierta texto en formato Markdown a HTML y viceversa.
-C. Conversor de EM a PX.
 C. Conversor de color (RGB, HEX y HSL): 
   Convierte códigos de color entre formatos como RGB, HEX, HSL.
 C. Conversor de formato de imagen (base64 a imagen): 
@@ -63,6 +63,10 @@ C. Conversor de longitudes:
 C. Conversor de temperatura:
   Convierte entre Celsius, Fahrenheit y Kelvin.
 
+grupo 4:
+C. Conversor de EM a PX.
+C. Conversor de CM a PX.
+C. Conversor de pulgadas.
 -->
 <!--
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
